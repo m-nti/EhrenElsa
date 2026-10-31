@@ -1,0 +1,102 @@
+{
+  "generated": "2026-10-31T13:23:20.567Z",
+  "source": "demo",
+  "photos": [
+    {
+      "id": "sample-01",
+      "src": "demo/sample-01.jpg",
+      "thumb": "demo/thumbs/sample-01.jpg",
+      "view": "demo/sample-01.jpg",
+      "filename": "sample-01.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-02",
+      "src": "demo/sample-02.jpg",
+      "thumb": "demo/thumbs/sample-02.jpg",
+      "view": "demo/sample-02.jpg",
+      "filename": "sample-02.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-03",
+      "src": "demo/sample-03.jpg",
+      "thumb": "demo/thumbs/sample-03.jpg",
+      "view": "demo/sample-03.jpg",
+      "filename": "sample-03.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-04",
+      "src": "demo/sample-04.jpg",
+      "thumb": "demo/thumbs/sample-04.jpg",
+      "view": "demo/sample-04.jpg",
+      "filename": "sample-04.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-05",
+      "src": "demo/sample-05.jpg",
+      "thumb": "demo/thumbs/sample-05.jpg",
+      "view": "demo/sample-05.jpg",
+      "filename": "sample-05.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-06",
+      "src": "demo/sample-06.jpg",
+      "thumb": "demo/thumbs/sample-06.jpg",
+      "view": "demo/sample-06.jpg",
+      "filename": "sample-06.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-07",
+      "src": "demo/sample-07.jpg",
+      "thumb": "demo/thumbs/sample-07.jpg",
+      "view": "demo/sample-07.jpg",
+      "filename": "sample-07.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "id": "sample-08",
+      "src": "demo/sample-08.jpg",
+      "thumb": "demo/thumbs/sample-08.jpg",
+      "view": "demo/sample-08.jpg",
+      "filename": "sample-08.jpg",
+      "caption": "",
+      "alt": "",
+      "demo": true,
+      "width": 1200,
+      "height": 1200
+    }
+  ]
+}

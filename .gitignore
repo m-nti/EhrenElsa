@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+qa-shots/
+
+# Personal photos stay on the Mac unless the owner decides otherwise.
+photos/*
+!photos/.gitkeep
+!photos/.htaccess
+!photos/captions.json
+!photos/captions.example.json
+!photos/thumbs/
+photos/thumbs/*
+!photos/thumbs/.gitkeep
+photos/.cache/

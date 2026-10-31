@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lucky Elsa — ein Glücksrad voller Elsa-Fotos</title>
+  <meta name="description" content="Dreh das Rad und ein zufälliges Foto von Elsa kommt zum Vorschein. Alle Fotos kommen einmal dran, bevor sich eines wiederholt.">
+  <meta name="theme-color" content="#f6efdf">
+  <meta name="color-scheme" content="light">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/ultra-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/chivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Lucky Elsa">
+  <meta property="og:description" content="Ein Glücksrad voller Elsa-Fotos. Dreh es und schau, welches kommt.">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:image" content="assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script>
+    (() => {
+      try {
+        const param = new URLSearchParams(window.location.search).get("lang");
+        const stored = JSON.parse(window.localStorage.getItem("lucky-elsa.lang.v1") || "null");
+        const lang = param === "de" || param === "en"
+          ? param
+          : stored === "de" || stored === "en" ? stored : "de";
+        document.documentElement.lang = lang;
+        if (lang === "en") {
+          document.title = "Lucky Elsa — a wheel of Elsa photos";
+        }
+      } catch {
+        // The page stays in German when storage is unavailable.
+      }
+    })();
+  </script>
+
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#stage" data-i18n="skip">Direkt zum Rad</a>
+
+  <header class="masthead">
+    <div class="shell masthead__inner">
+      <a class="wordmark" href="./" aria-label="Lucky Elsa, zurück zum Rad" data-i18n-aria-label="wordmarkLabel">
+        <svg class="wordmark__paw" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
+          <ellipse cx="12" cy="6.7" rx="2.2" ry="3.1"/>
+          <ellipse cx="17.9" cy="9.2" rx="2.1" ry="2.9"/>
+          <ellipse cx="21" cy="14.4" rx="1.8" ry="2.4"/>
+          <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
+        </svg>
+        <span>Lucky Elsa</span>
+      </a>
+
+      <p class="masthead__count" id="masthead-count" data-i18n="progressLoading">Fotos werden gesucht</p>
+
+      <nav class="masthead__nav" aria-label="Hauptmenü" data-i18n-aria-label="menuLabel">
+        <a class="nav-link" href="#album" data-i18n="navAlbum">Alle Fotos</a>
+
+        <div class="lang-switch" role="group" aria-label="Sprache" data-i18n-aria-label="languageLabel">
+          <button class="lang-switch__button" type="button" data-lang="de" lang="de" aria-pressed="true" aria-label="Deutsch">DE</button>
+          <button class="lang-switch__button" type="button" data-lang="en" lang="en" aria-pressed="false" aria-label="English">EN</button>
+        </div>
+
+        <button class="sound-toggle" id="sound-toggle" type="button" aria-pressed="true" aria-label="Ton">
+          <svg class="sound-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 9.2v5.6h3.7l4.9 4V5.2l-4.9 4H4Z" fill="currentColor"/>
+            <path class="sound-toggle__wave" d="M15.6 8.4a5 5 0 0 1 0 7.2M18.6 5.4a9.2 9.2 0 0 1 0 13.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path class="sound-toggle__slash" d="m15 9 6 6M21 9l-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="sound-toggle__label">Ton an</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="stage" id="stage" aria-labelledby="stage-title">
+      <div class="shell stage__grid">
+        <div class="stage__copy">
+          <h1 class="display" id="stage-title" data-i18n-html="headline">Welche Elsa<br>wird es?</h1>
+          <p class="stage__lede" data-i18n="lede">Dreh am Rad, und ein Foto kommt heraus. Es wandert durch den ganzen Stapel, bevor es von vorn losgeht.</p>
+
+          <div class="stage__actions">
+            <button class="button button--primary" id="spin" type="button" data-i18n="spin">Rad drehen</button>
+            <a class="text-link" href="#album" data-i18n="seeAlbum">Alle Fotos ansehen</a>
+          </div>
+
+          <div class="progress" id="progress-block">
+            <p class="progress__label" id="progress-label" data-i18n="progressLoading">Fotos werden gesucht</p>
+            <div class="progress__track" id="progress-track" role="progressbar" aria-labelledby="progress-label" aria-valuemin="0" aria-valuemax="1" aria-valuenow="0">
+              <span class="progress__fill" id="progress-fill"></span>
+            </div>
+            <p class="progress__note" data-i18n="progressNote">Jedes Foto kommt einmal dran, bevor das Rad von vorn beginnt.</p>
+          </div>
+
+          <p class="stage__hint" data-i18n-html="spinHint">Drück <kbd>S</kbd>, um zu drehen.</p>
+        </div>
+
+        <div class="stage__wheel">
+          <div class="wheel-frame">
+            <button class="wheel" id="wheel" type="button" aria-label="Dreh das Rad für ein zufälliges Foto von Elsa">
+              <span class="wheel__disc" id="wheel-disc">
+                <span class="wheel__loading" id="wheel-loading" data-i18n="wheelLoading">Fotos werden geladen</span>
+              </span>
+              <span class="wheel__rim" aria-hidden="true"></span>
+              <span class="wheel__hub" aria-hidden="true">
+                <svg class="wheel__paw" viewBox="0 0 24 24" focusable="false">
+                  <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
+                  <ellipse cx="12" cy="6.7" rx="2.2" ry="3.1"/>
+                  <ellipse cx="17.9" cy="9.2" rx="2.1" ry="2.9"/>
+                  <ellipse cx="21" cy="14.4" rx="1.8" ry="2.4"/>
+                  <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
+                </svg>
+                <span class="wheel__hub-text">Elsa</span>
+              </span>
+            </button>
+
+            <svg class="wheel__pointer" viewBox="0 0 48 52" aria-hidden="true" focusable="false">
+              <path d="M24 49 5 9h38L24 49Z" fill="currentColor" stroke="var(--color-paper)" stroke-width="4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <p class="wheel-caption" data-i18n="wheelCaption">Acht Fotos auf einmal, aus denen, die du noch nicht gesehen hast.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="album" id="album" aria-labelledby="album-title">
+      <div class="shell">
+        <div class="album__head">
+          <div class="album__intro">
+            <h2 class="display album__title" id="album-title" data-i18n="albumTitle">Alle Fotos</h2>
+            <p class="album__lede" data-i18n="albumLede">Jedes Foto bekommt seine eigene Auszeichnung. Öffne eins und schau, was es gewonnen hat.</p>
+          </div>
+          <div class="album__tools">
+            <p class="album__count" id="album-count" data-i18n="albumCountLoading">Fotos werden geladen</p>
+            <button class="button button--outline" id="reset-lap" type="button" data-i18n="reset">Von vorn</button>
+          </div>
+        </div>
+
+        <p class="album__sample" id="demo-note" hidden data-i18n="demoNote">Das hier sind Beispielkarten. Die echten Fotos fehlen noch.</p>
+
+        <ul class="album__grid" id="album-grid" aria-label="Alle Fotos von Elsa" data-i18n-aria-label="albumLabel">
+          <li class="album__placeholder" data-i18n="loadingDots">Fotos werden geladen…</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <div class="shell colophon__inner">
+      <p class="colophon__brand">Lucky Elsa</p>
+      <p class="colophon__line" data-i18n="footerLine">Zu Hause für Elsa gebaut. Keine Anmeldung, nichts wird getrackt.</p>
+      <a class="text-link" href="#stage" data-i18n="backToWheel">Zurück zum Rad</a>
+    </div>
+  </footer>
+
+  <dialog class="lightbox" id="photo-dialog" aria-labelledby="photo-title">
+    <article class="print">
+      <header class="print__bar">
+        <p class="print__number" id="photo-number">Nr. 01</p>
+        <p class="print__wordmark">Lucky Elsa</p>
+        <button class="print__close" id="close-dialog" type="button" aria-label="Dieses Foto schließen" data-i18n-aria-label="closePhoto">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m5 5 14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="print__body">
+        <figure class="print__figure">
+          <img class="print__img" id="photo-img" src="assets/favicon.svg" alt="" width="1200" height="1200">
+          <span class="print__stamp" id="photo-stamp" aria-hidden="true">
+            <span data-i18n="stampTop">Brave Elsa</span>
+            <span data-i18n="stampBottom">Geprüft</span>
+          </span>
+        </figure>
+
+        <div class="print__copy">
+          <h2 class="display print__award" id="photo-title">Beste Ohrenhaltung</h2>
+          <p class="print__caption" id="photo-caption" hidden></p>
+          <p class="print__progress" id="photo-progress" data-i18n="dialogProgressDefault">Du hast 1 von 24 gesehen.</p>
+
+          <div class="print__actions">
+            <button class="button button--primary" id="spin-again" type="button" data-i18n="spinAgain">Nochmal drehen</button>
+            <a class="button button--outline" id="download-photo" href="#" download data-i18n="savePhoto">Foto speichern</a>
+            <button class="button button--outline" id="share-photo" type="button" data-i18n="share">Teilen</button>
+          </div>
+
+          <p class="print__status" id="share-status" role="status" aria-live="polite"></p>
+          <p class="print__hint" data-i18n-html="dialogHint">Mit <kbd>←</kbd> und <kbd>→</kbd> durch die Fotos gehen.</p>
+        </div>
+      </div>
+    </article>
+  </dialog>
+
+  <p class="visually-hidden" id="live" role="status" aria-live="polite"></p>
+
+  <noscript>
+    <div class="noscript">
+      <p data-i18n-html="noscript">Das Rad braucht JavaScript. Die Fotos liegen trotzdem im Ordner <code>photos</code>.</p>
+    </div>
+  </noscript>
+</body>
+</html>

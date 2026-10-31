@@ -1,0 +1,18 @@
+{
+  "name": "lucky-elsa",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A little wheel of Elsa photos, made for friends and family.",
+  "scripts": {
+    "photos": "node scripts/photos.mjs",
+    "demo": "node scripts/make-demo.mjs",
+    "og": "node scripts/make-og.mjs",
+    "qa": "node scripts/qa.mjs",
+    "serve": "python3 -m http.server 4173",
+    "check": "node --check assets/js/app.js"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.16.0"
+  }
+}
