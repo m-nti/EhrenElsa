@@ -31,15 +31,30 @@ if (!browserPath) {
 
 const ultra = pathToFileURL(join(fontDir, "ultra-latin.woff2")).href;
 const chivo = pathToFileURL(join(fontDir, "chivo-latin.woff2")).href;
-const center = 196;
-const radius = 140;
-const photos = Array.from({ length: 6 }, (_, index) => {
-  const angle = (index * 60 - 90) * (Math.PI / 180);
-  const x = center + radius * Math.cos(angle);
-  const y = center + radius * Math.sin(angle);
-  const file = `sample-${String(index + 1).padStart(2, "0")}.jpg`;
-  return `<img class="photo" src="${pathToFileURL(join(root, "demo", "thumbs", file)).href}" style="left:${x}px;top:${y}px" alt="">`;
-}).join("");
+const thumb = (name) => pathToFileURL(join(root, "demo", "thumbs", name)).href;
+
+const paw = `
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
+    <ellipse cx="12" cy="6.7" rx="2.2" ry="3.1"/>
+    <ellipse cx="17.9" cy="9.2" rx="2.1" ry="2.9"/>
+    <ellipse cx="21" cy="14.4" rx="1.8" ry="2.4"/>
+    <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
+  </svg>`;
+
+// Three cards fanned out, the middle one foiled like a holo pull.
+const cards = [
+  { file: "sample-03.jpg", rarity: "back", rotate: -13, offset: -132 },
+  { file: "sample-01.jpg", rarity: "holo", rotate: 3, offset: 0 },
+  { file: "sample-06.jpg", rarity: "plain", rotate: 15, offset: 136 }
+].map((card, index) => `
+    <div class="card ${card.rarity}" style="--rotate:${card.rotate}deg;--offset:${card.offset}px;--z:${10 + index}">
+      <span class="card__foil"></span>
+      <span class="card__photo"><img src="${thumb(card.file)}" alt=""></span>
+      <span class="card__head"><span class="card__number">Nr. ${String(index + 1).padStart(2, "0")}</span><span class="card__rarity">${card.rarity === "holo" ? "Holo" : "Serie I"}</span></span>
+      <span class="card__name">Elsa</span>
+      <span class="card__line">Fünf Karten, mindestens eine mit Folie.</span>
+    </div>`).join("");
 
 const html = `<!doctype html>
 <html lang="de">
@@ -68,7 +83,7 @@ const html = `<!doctype html>
     padding: 52px 58px;
     border: 10px solid #2b1d16;
   }
-  .copy { position: relative; z-index: 2; }
+  .copy { position: relative; z-index: 30; }
   .brand {
     display: flex;
     align-items: center;
@@ -78,7 +93,7 @@ const html = `<!doctype html>
     font-size: 40px;
     line-height: 1;
   }
-  .brand svg { width: 38px; fill: #c03a22; }
+  .brand svg { width: 38px; fill: #0d5f53; }
   h1 {
     margin: 0;
     font-family: "Ultra", serif;
@@ -87,96 +102,71 @@ const html = `<!doctype html>
     line-height: 1.02;
   }
   p { margin: 22px 0 0; max-width: 560px; font-size: 25px; line-height: 1.4; color: #4a382c; }
-  .rule {
-    width: 120px;
-    height: 8px;
-    margin-top: 36px;
-    background: #c03a22;
-  }
-  .wheel {
-    position: relative;
-    width: 392px;
-    height: 392px;
-    border: 12px solid #2b1d16;
-    border-radius: 50%;
-    background: repeating-conic-gradient(from -30deg, #c03a22 0 60deg, #efe3c9 60deg 120deg);
-  }
-  .wheel::after {
-    content: "";
-    position: absolute;
-    inset: 9px;
-    border: 5px solid #f6efdf;
-    border-radius: 50%;
-  }
-  .photo {
-    position: absolute;
-    z-index: 1;
-    width: 92px;
-    height: 92px;
-    border: 4px solid #f6efdf;
-    border-radius: 50%;
-    object-fit: cover;
-    transform: translate(-50%, -50%);
-  }
-  .hub {
+  .rule { width: 120px; height: 8px; margin-top: 36px; background: #0d5f53; }
+
+  .fan { position: relative; height: 470px; }
+  .card {
     position: absolute;
     top: 50%;
     left: 50%;
-    z-index: 3;
+    z-index: var(--z);
     display: grid;
-    place-items: center;
-    width: 92px;
-    height: 92px;
-    border: 7px solid #f6efdf;
-    border-radius: 50%;
-    background: #2b1d16;
-    transform: translate(-50%, -50%);
+    width: 250px;
+    padding: 12px;
+    gap: 8px;
+    border: 5px solid #2b1d16;
+    border-radius: 4px;
+    background: #f6efdf;
+    transform: translate(-50%, -50%) translateX(var(--offset)) rotate(var(--rotate));
   }
-  .hub svg { width: 44px; fill: #c03a22; }
-  .pointer {
+  .card.holo { box-shadow: 0 0 0 3px #72efdd, 0 18px 30px rgba(43, 29, 22, 0.28); }
+  .card.holo .card__foil {
     position: absolute;
-    top: -34px;
-    left: 50%;
-    z-index: 4;
-    width: 54px;
-    color: #2b1d16;
-    transform: translateX(-50%);
+    inset: 0;
+    border-radius: 4px;
+    background: conic-gradient(from 40deg,
+      rgba(114, 239, 221, 0.75), rgba(255, 255, 255, 0) 30%,
+      rgba(13, 95, 83, 0.55) 55%, rgba(255, 255, 255, 0) 78%,
+      rgba(114, 239, 221, 0.7));
+    mix-blend-mode: screen;
+    opacity: 0.85;
   }
+  .card:not(.holo) .card__foil { display: none; }
+  .card.back { opacity: 0.92; }
+  .card__photo {
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: 230px;
+    overflow: hidden;
+    border: 3px solid #2b1d16;
+  }
+  .card__photo img { width: 100%; height: 100%; object-fit: cover; }
+  .card__head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .card.holo .card__rarity { color: #0d5f53; }
+  .card__name { position: relative; z-index: 1; font-family: "Ultra", serif; font-size: 26px; }
+  .card__line { position: relative; z-index: 1; font-size: 15px; line-height: 1.25; color: #4a382c; }
 </style>
 </head>
 <body>
   <div class="og">
     <div class="copy">
       <div class="brand">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
-          <ellipse cx="12" cy="6.7" rx="2.2" ry="3.1"/>
-          <ellipse cx="17.9" cy="9.2" rx="2.1" ry="2.9"/>
-          <ellipse cx="21" cy="14.4" rx="1.8" ry="2.4"/>
-          <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
-        </svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true">${paw.replace(/^\s*<svg[^>]*>|<\/svg>\s*$/g, "")}</svg>
         Lucky Elsa
       </div>
-      <h1>Welche Elsa<br>wird es?</h1>
-      <p>Ein Glücksrad voller Elsa-Fotos. Dreh es und schau, welches kommt.</p>
+      <h1>Was steckt<br>im Pack?</h1>
+      <p>Fünf Elsa-Karten auf einmal, mindestens eine davon holografisch.</p>
       <div class="rule"></div>
     </div>
-
-    <div class="wheel">
-      ${photos}
-      <span class="hub">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
-          <ellipse cx="12" cy="6.7" rx="2.2" ry="3.1"/>
-          <ellipse cx="17.9" cy="9.2" rx="2.1" ry="2.9"/>
-          <ellipse cx="21" cy="14.4" rx="1.8" ry="2.4"/>
-          <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
-        </svg>
-      </span>
-      <svg class="pointer" viewBox="0 0 48 52" aria-hidden="true">
-        <path d="M24 49 5 9h38L24 49Z" fill="currentColor" stroke="#f6efdf" stroke-width="4" stroke-linejoin="round"/>
-      </svg>
-    </div>
+    <div class="fan">${cards}</div>
   </div>
 </body>
 </html>`;

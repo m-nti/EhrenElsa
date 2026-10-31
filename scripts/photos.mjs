@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 // Builds photos.json and the thumbnails for static hosting.
 //
-// Put the real photos in photos/ (JPG, PNG, WebP, GIF, AVIF) and run:
+// Put the real photos in photos/ (JPG, PNG, WebP, GIF, AVIF, HEIC) and run:
 //
 //   npm run photos
 //
-// If photos/ has no images, the script writes a manifest for the sample cards
-// in demo/ instead, so the site still works out of the box. On the IONOS
-// server, photos.php can build the same list live and the browser prefers it.
+// iPhone HEIC files are converted to JPEG in photos/converted/, because most
+// browsers cannot show them. If photos/ has fewer than eight images, sample
+// cards fill the wheel up to eight. If photos/ is empty, you get the eight
+// sample cards. On the IONOS server, photos.php can build the same list live
+// and the browser prefers it.
 
 import { execFileSync } from "node:child_process";
 import {
@@ -23,13 +25,19 @@ import { join, resolve, extname, parse } from "node:path";
 const root = resolve(new URL("..", import.meta.url).pathname);
 const photosDir = join(root, "photos");
 const thumbDir = join(photosDir, "thumbs");
+const convertedDir = join(photosDir, "converted");
 const demoDir = join(root, "demo");
 const demoThumbDir = join(demoDir, "thumbs");
 const manifestPath = join(root, "photos.json");
 const captionsPath = join(photosDir, "captions.json");
 
-const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
+const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif", ".heic", ".heif"]);
+const HEIC_EXTENSIONS = new Set([".heic", ".heif"]);
 const THUMB_MAX = 720;
+const CONVERT_MAX = 2600;
+const CONVERT_QUALITY = 88;
+// Fewer than eight real photos still fills a whole wheel, with sample cards.
+const MIN_WHEEL = 8;
 
 function listImages(dir) {
   if (!existsSync(dir)) return [];
@@ -79,6 +87,27 @@ function imageSize(file) {
   }
 
   return { width: 1200, height: 1200 };
+}
+
+function convertHeic(source, target) {
+  try {
+    if (existsSync(target) && statSync(target).mtimeMs >= statSync(source).mtimeMs) {
+      return true;
+    }
+
+    // macOS reads HEIC through sips; nothing else we can rely on lives here.
+    execFileSync("sips", [
+      "-Z", String(CONVERT_MAX),
+      "-s", "format", "jpeg",
+      "-s", "formatOptions", String(CONVERT_QUALITY),
+      source,
+      "--out", target
+    ], { stdio: "ignore" });
+
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function makeThumbnail(source, target) {
@@ -139,14 +168,31 @@ function realPhotos() {
   const used = new Set();
 
   return listImages(photosDir).map((filename, index) => {
+    const extension = extname(filename).toLowerCase();
     const id = uniqueId(slugify(parse(filename).name), used);
     const source = join(photosDir, filename);
+
+    // A HEIC from an iPhone is converted to JPEG once, so every browser that
+    // cannot read HEIC still gets a picture. The original stays untouched.
+    let webSource = source;
+    let webName = filename;
+
+    if (HEIC_EXTENSIONS.has(extension)) {
+      const convertedName = `${parse(filename).name}.jpg`;
+      const convertedPath = join(convertedDir, convertedName);
+
+      if (convertHeic(source, convertedPath)) {
+        webSource = convertedPath;
+        webName = `converted/${convertedName}`;
+      }
+    }
+
     const thumbName = `${id}.jpg`;
     const thumbPath = join(thumbDir, thumbName);
-    const hasThumb = makeThumbnail(source, thumbPath);
-    const { width, height } = imageSize(source);
+    const hasThumb = makeThumbnail(webSource, thumbPath);
+    const { width, height } = imageSize(webSource);
     const { caption, alt } = captionFor(captions, filename);
-    const src = `photos/${encodeName(filename)}`;
+    const src = `photos/${encodeName(webName)}`;
 
     return {
       id,
@@ -157,6 +203,7 @@ function realPhotos() {
       caption,
       alt,
       demo: false,
+      heic: HEIC_EXTENSIONS.has(extension),
       width,
       height,
       order: index
@@ -189,6 +236,7 @@ function demoPhotos() {
 
 mkdirSync(photosDir, { recursive: true });
 mkdirSync(thumbDir, { recursive: true });
+mkdirSync(convertedDir, { recursive: true });
 
 let photos = realPhotos();
 let source = "photos";
@@ -196,6 +244,12 @@ let source = "photos";
 if (!photos.length) {
   photos = demoPhotos();
   source = "demo";
+} else if (photos.length < MIN_WHEEL) {
+  // One real Elsa is worth showing; the rest of the wheel stays placeholder
+  // until there are eight real ones.
+  const filler = demoPhotos().slice(0, MIN_WHEEL - photos.length);
+  photos = photos.concat(filler);
+  source = "mixed";
 }
 
 const manifest = {
@@ -206,10 +260,16 @@ const manifest = {
 
 writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
-console.log(`Wrote photos.json with ${manifest.photos.length} ${source === "demo" ? "sample cards" : "photos"}.`);
+const realCount = manifest.photos.filter((photo) => !photo.demo).length;
+
+console.log(`Wrote photos.json: ${realCount} ${realCount === 1 ? "photo" : "photos"} from photos/ and ${manifest.photos.length - realCount} sample cards.`);
 
 if (source === "demo") {
   console.log("Put Elsa's photos in photos/ and run npm run photos again.");
 } else {
   console.log("Thumbnails are in photos/thumbs/.");
+}
+
+if (source === "mixed") {
+  console.log(`Once there are eight real photos the sample cards drop out on their own.`);
 }

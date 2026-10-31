@@ -13,6 +13,7 @@
     "check": "node --check assets/js/app.js"
   },
   "devDependencies": {
+    "heic2any": "^0.0.4",
     "puppeteer-core": "^25.16.0"
   }
 }

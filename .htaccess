@@ -3,6 +3,11 @@ DirectoryIndex index.html
 
 AddDefaultCharset UTF-8
 
+<IfModule mod_mime.c>
+  AddType image/heic .heic
+  AddType image/heif .heif
+</IfModule>
+
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "same-origin"

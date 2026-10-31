@@ -6,16 +6,21 @@ declare(strict_types=1);
  *
  *   photos.php?list=1          JSON list of the images in photos/
  *   photos.php?thumb=NAME      cached JPEG thumbnail, max 720 px
- *   photos.php?view=NAME       the original image
+ *   photos.php?view=NAME       the original image, HEIC converted to JPEG when possible
  *
  * The browser tries this file first and falls back to photos.json when PHP is
  * unavailable. Nothing outside photos/ is ever served, and only image
- * extensions are accepted.
+ * extensions are accepted. iPhone HEIC files are listed too; when Imagick can
+ * read them they are converted to JPEG once and cached in photos/converted/,
+ * and otherwise the browser converts them itself (see assets/js/app.js).
  */
 
 const PHOTO_DIR = __DIR__ . '/photos';
 const CACHE_DIR = PHOTO_DIR . '/.cache';
+const CONVERTED_DIR = PHOTO_DIR . '/converted';
 const CAPTIONS_FILE = PHOTO_DIR . '/captions.json';
+const CONVERT_MAX = 2600;
+const CONVERT_QUALITY = 88;
 const THUMB_MAX = 720;
 const THUMB_QUALITY = 82;
 
@@ -25,8 +30,12 @@ const IMAGE_TYPES = [
     'png'  => 'image/png',
     'webp' => 'image/webp',
     'gif'  => 'image/gif',
-    'avif' => 'image/avif'
+    'avif' => 'image/avif',
+    'heic' => 'image/heic',
+    'heif' => 'image/heic'
 ];
+
+const HEIC_TYPES = ['heic', 'heif'];
 
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
@@ -202,11 +211,32 @@ function sendPhotoList(): void
         $used[$unique] = true;
 
         $path = PHOTO_DIR . '/' . $filename;
+        $extension = extensionOf($filename);
+        $isHeic = in_array($extension, HEIC_TYPES, true);
+
+        // HEIC goes through this script: it serves a converted JPEG when there
+        // is one, and the original otherwise. Direct links would only work in
+        // Safari.
+        $src = $isHeic
+            ? 'photos.php?view=' . rawurlencode($filename)
+            : 'photos/' . rawurlencode($filename);
+
         $size = @getimagesize($path);
         $width = $size !== false ? (int) $size[0] : 1200;
         $height = $size !== false ? (int) $size[1] : 1200;
+
+        $converted = $isHeic ? convertedName($filename) : '';
+        if ($converted !== '' && is_file(CONVERTED_DIR . '/' . $converted)) {
+            $width = 0;
+            $height = 0;
+            $info = @getimagesize(CONVERTED_DIR . '/' . $converted);
+            if ($info !== false) {
+                $width = (int) $info[0];
+                $height = (int) $info[1];
+            }
+        }
+
         $meta = captionFor($captions, $filename);
-        $src = 'photos/' . rawurlencode($filename);
 
         $photos[] = [
             'id' => $unique,
@@ -217,6 +247,7 @@ function sendPhotoList(): void
             'caption' => $meta['caption'],
             'alt' => $meta['alt'],
             'demo' => false,
+            'heic' => $isHeic,
             'width' => $width,
             'height' => $height
         ];
@@ -237,6 +268,16 @@ function sendOriginal(string $rawName): void
         exit;
     }
 
+    if (in_array(extensionOf($path), HEIC_TYPES, true)) {
+        $jpeg = convertedJpeg($path);
+
+        // No converter and no cached copy: send the original. Safari can draw
+        // it; other browsers trigger the in-browser conversion in app.js.
+        if ($jpeg !== null) {
+            serveFile($jpeg, 'image/jpeg', 604800);
+        }
+    }
+
     serveFile($path, IMAGE_TYPES[extensionOf($path)] ?? 'application/octet-stream', 604800);
 }
 
@@ -246,6 +287,13 @@ function sendThumbnail(string $rawName): void
     if ($path === null) {
         http_response_code(404);
         exit;
+    }
+
+    if (in_array(extensionOf($path), HEIC_TYPES, true)) {
+        $jpeg = convertedJpeg($path);
+        if ($jpeg !== null) {
+            $path = $jpeg;
+        }
     }
 
     $name = basename($path);
@@ -278,6 +326,55 @@ function sendThumbnail(string $rawName): void
 
     imagedestroy($thumb);
     serveFile($path, $mime, 86400);
+}
+
+function convertedName(string $path): string
+{
+    return pathinfo($path, PATHINFO_FILENAME) . '.jpg';
+}
+
+/**
+ * Absolute path to a JPEG version of a HEIC file, or null when neither a
+ * previously converted copy nor Imagick is available. Imagick is the only
+ * decoder that can realistically be installed on shared hosting.
+ */
+function convertedJpeg(string $path): ?string
+{
+    $target = CONVERTED_DIR . '/' . convertedName($path);
+
+    if (is_file($target) && filemtime($target) >= filemtime($path)) {
+        return $target;
+    }
+
+    if (!extension_loaded('imagick') || !class_exists('Imagick')) {
+        return null;
+    }
+
+    if (!is_dir(CONVERTED_DIR)) {
+        @mkdir(CONVERTED_DIR, 0775, true);
+    }
+
+    if (!is_dir(CONVERTED_DIR) || !is_writable(CONVERTED_DIR)) {
+        return null;
+    }
+
+    try {
+        $image = new Imagick($path);
+        $image->setImageFormat('jpeg');
+        $image->setImageCompressionQuality(CONVERT_QUALITY);
+        $image->setBackgroundColor('white');
+
+        if ($image->getImageWidth() > CONVERT_MAX || $image->getImageHeight() > CONVERT_MAX) {
+            $image->thumbnailImage(CONVERT_MAX, CONVERT_MAX, true);
+        }
+
+        $written = $image->writeImage($target);
+        $image->clear();
+    } catch (Throwable $error) {
+        return null;
+    }
+
+    return $written && is_file($target) ? $target : null;
 }
 
 function makeThumbnail(string $path)
