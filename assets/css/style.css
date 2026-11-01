@@ -456,7 +456,7 @@ kbd { display: inline-flex; min-width: 22px; min-height: 22px; align-items: cent
 .pack-dialog__eyebrow { color: var(--metal); font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
 .pack-dialog__head h2 { margin-top: 4px; color: var(--ink); font-size: clamp(23px, 3vw, 34px); font-weight: 600; letter-spacing: -0.06em; line-height: 1; }
 .pack-dialog__head .lightbox__close { width: 44px; height: 44px; }
-.pack-dialog__opening { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; overflow: hidden; pointer-events: none; }
+.pack-dialog__opening { position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
 .pack-dialog__opening[hidden] { display: none; }
 .pack-dialog__sachet {
   position: relative;
@@ -699,7 +699,8 @@ kbd { display: inline-flex; min-width: 22px; min-height: 22px; align-items: cent
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin: 0;
+  /* Room to breathe between the card and the controls below it. */
+  margin-top: var(--space-5);
 }
 .lightbox__actions .button { width: auto; min-height: 42px; }
 .print__status { grid-column: 1; grid-row: 4; min-height: 1.1em; text-align: center; }
@@ -797,7 +798,7 @@ kbd { display: inline-flex; min-width: 22px; min-height: 22px; align-items: cent
   #card-full-slot { grid-column: 1; grid-row: 2 / span 4; width: min(340px, calc((100svh - 300px) * .70)); }
   .lightbox__inner { grid-template-columns: minmax(0, 340px) 150px; grid-template-rows: auto auto auto auto; column-gap: 24px; row-gap: 12px; padding: 24px 42px; }
   .lightbox__close { grid-column: 1 / -1; grid-row: 1; }
-  .lightbox__actions { grid-column: 2; grid-row: 2; display: grid; width: 150px; justify-self: start; align-self: center; }
+  .lightbox__actions { grid-column: 2; grid-row: 2; display: grid; width: 150px; justify-self: start; align-self: center; margin-top: 0; }
   .lightbox__actions .button { width: 100%; }
   .print__status { grid-column: 2; grid-row: 3; justify-self: start; text-align: left; }
   .print__hint { grid-column: 2; grid-row: 4; justify-self: start; text-align: left; }
