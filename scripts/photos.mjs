@@ -142,21 +142,36 @@ function loadCaptions() {
   }
 }
 
+function localizable(value) {
+  if (typeof value === "string") return value.trim();
+  if (!value || typeof value !== "object" || Array.isArray(value)) return "";
+
+  return Object.fromEntries(
+    ["de", "en"]
+      .filter((language) => typeof value[language] === "string")
+      .map((language) => [language, value[language].trim()])
+  );
+}
+
 function captionFor(captions, filename) {
   const entry = captions[filename];
 
   if (typeof entry === "string") {
-    return { caption: entry.trim(), alt: "" };
+    return { caption: entry.trim(), alt: "", name: "", mood: "", description: "", rarity: "" };
   }
 
   if (entry && typeof entry === "object") {
     return {
-      caption: typeof entry.caption === "string" ? entry.caption.trim() : "",
-      alt: typeof entry.alt === "string" ? entry.alt.trim() : ""
+      caption: localizable(entry.caption),
+      alt: localizable(entry.alt),
+      name: localizable(entry.name),
+      mood: localizable(entry.mood),
+      description: localizable(entry.description),
+      rarity: ["common", "rare", "holo"].includes(entry.rarity) ? entry.rarity : ""
     };
   }
 
-  return { caption: "", alt: "" };
+  return { caption: "", alt: "", name: "", mood: "", description: "", rarity: "" };
 }
 
 function encodeName(name) {
@@ -191,7 +206,7 @@ function realPhotos() {
     const thumbPath = join(thumbDir, thumbName);
     const hasThumb = makeThumbnail(webSource, thumbPath);
     const { width, height } = imageSize(webSource);
-    const { caption, alt } = captionFor(captions, filename);
+    const { caption, alt, name, mood, description, rarity } = captionFor(captions, filename);
     const src = `photos/${encodeName(webName)}`;
 
     return {
@@ -202,6 +217,10 @@ function realPhotos() {
       filename,
       caption,
       alt,
+      name,
+      mood,
+      description,
+      rarity,
       demo: false,
       heic: HEIC_EXTENSIONS.has(extension),
       width,

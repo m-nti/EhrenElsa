@@ -1,7 +1,15 @@
 {
   "elsa-im-garten.jpg": {
-    "caption": "Im Garten, Sommer 2025",
-    "alt": "Elsa steht im Garten und schaut in die Kamera"
-  },
-  "elsa-am-see.jpg": "Nach dem Baden am See"
+    "name": { "de": "Garten-Inspektorin", "en": "Garden Inspector" },
+    "mood": { "de": "aufmerksam", "en": "alert" },
+    "description": {
+      "de": "Der Garten ist geprüft. Ein zweiter Rundgang schadet trotzdem nie.",
+      "en": "The garden has been checked. A second round never hurts."
+    },
+    "alt": {
+      "de": "Elsa steht im Garten und schaut in die Kamera.",
+      "en": "Elsa stands in the garden and looks at the camera."
+    },
+    "rarity": "rare"
+  }
 }

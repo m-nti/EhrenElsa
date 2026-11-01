@@ -1,9 +1,9 @@
 {
-  "name": "lucky-elsa",
+  "name": "elsen",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "A little wheel of Elsa photos, made for friends and family.",
+  "description": "A collectible photo-card pack for Elsa, made for friends and family.",
   "scripts": {
     "photos": "node scripts/photos.mjs",
     "demo": "node scripts/make-demo.mjs",

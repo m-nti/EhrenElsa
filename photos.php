@@ -172,21 +172,50 @@ function loadCaptions(): array
     return is_array($parsed) ? $parsed : [];
 }
 
+function localizableField($value)
+{
+    if (is_string($value)) {
+        return trim($value);
+    }
+
+    if (!is_array($value)) {
+        return '';
+    }
+
+    $localized = [];
+    foreach (['de', 'en'] as $language) {
+        if (isset($value[$language]) && is_string($value[$language])) {
+            $localized[$language] = trim($value[$language]);
+        }
+    }
+
+    return $localized;
+}
+
 function captionFor(array $captions, string $filename): array
 {
     $entry = $captions[$filename] ?? null;
 
     if (is_string($entry)) {
-        return ['caption' => trim($entry), 'alt' => ''];
+        return ['caption' => trim($entry), 'alt' => '', 'name' => '', 'mood' => '', 'description' => '', 'rarity' => ''];
     }
 
     if (is_array($entry)) {
-        $caption = isset($entry['caption']) && is_string($entry['caption']) ? trim($entry['caption']) : '';
-        $alt = isset($entry['alt']) && is_string($entry['alt']) ? trim($entry['alt']) : '';
-        return ['caption' => $caption, 'alt' => $alt];
+        $rarity = isset($entry['rarity']) && in_array($entry['rarity'], ['common', 'rare', 'holo'], true)
+            ? $entry['rarity']
+            : '';
+
+        return [
+            'caption' => localizableField($entry['caption'] ?? ''),
+            'alt' => localizableField($entry['alt'] ?? ''),
+            'name' => localizableField($entry['name'] ?? ''),
+            'mood' => localizableField($entry['mood'] ?? ''),
+            'description' => localizableField($entry['description'] ?? ''),
+            'rarity' => $rarity
+        ];
     }
 
-    return ['caption' => '', 'alt' => ''];
+    return ['caption' => '', 'alt' => '', 'name' => '', 'mood' => '', 'description' => '', 'rarity' => ''];
 }
 
 function sendPhotoList(): void
@@ -246,6 +275,10 @@ function sendPhotoList(): void
             'filename' => $filename,
             'caption' => $meta['caption'],
             'alt' => $meta['alt'],
+            'name' => $meta['name'],
+            'mood' => $meta['mood'],
+            'description' => $meta['description'],
+            'rarity' => $meta['rarity'],
             'demo' => false,
             'heic' => $isHeic,
             'width' => $width,

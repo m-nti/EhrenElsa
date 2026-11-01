@@ -1,0 +1,122 @@
+{
+  "233A150F-1A63-408F-B8A6-6852E8CEC51B.jpg": {
+    "name": { "de": "Abgemeldet auf Grün", "en": "Offline on the Green" },
+    "mood": { "de": "tief im Traum", "en": "deep in a dream" },
+    "description": {
+      "de": "Der Tag kann warten. Elsa hat sich mit der Decke geeinigt.",
+      "en": "The day can wait. Elsa has reached an understanding with the duvet."
+    },
+    "alt": {
+      "de": "Elsa schläft zusammengerollt auf einer grünen Decke.",
+      "en": "Elsa is curled up asleep on a green duvet."
+    }
+  },
+  "elsa-01.jpg": {
+    "name": { "de": "Blickkontakt-Expertin", "en": "Eye Contact Expert" },
+    "mood": { "de": "aufmerksam bis zur Nasenspitze", "en": "alert to the tip of her nose" },
+    "description": {
+      "de": "Sie wartet auf den nächsten Hinweis. Oder auf ein Leckerli. Wahrscheinlich beides.",
+      "en": "She is waiting for the next clue. Or a treat. Probably both."
+    },
+    "alt": {
+      "de": "Elsa schaut auf dem Sofa direkt in die Kamera.",
+      "en": "Elsa looks straight at the camera from the sofa."
+    }
+  },
+  "IMG_0018.jpeg": {
+    "name": { "de": "Deckenhöhlen-Späherin", "en": "Duvet-Cave Scout" },
+    "mood": { "de": "heimlich neugierig", "en": "quietly curious" },
+    "description": {
+      "de": "Ein Auge draußen, der Rest noch im Bett. Sie hat trotzdem alles im Blick.",
+      "en": "One eye out, the rest still in bed. She is keeping tabs on everything."
+    },
+    "alt": {
+      "de": "Elsa schaut unter einer hellen Decke hervor.",
+      "en": "Elsa peeks out from beneath a pale duvet."
+    }
+  },
+  "IMG_0132.jpeg": {
+    "name": { "de": "Kissen mit Aufsicht", "en": "Pillow Supervisor" },
+    "mood": { "de": "gemütlich mit Überblick", "en": "cosy with a view" },
+    "description": {
+      "de": "Sie hat den bequemsten Platz gefunden und prüft, ob du das bemerkt hast.",
+      "en": "She found the comfiest spot and is checking whether you noticed."
+    },
+    "alt": {
+      "de": "Elsa liegt gemütlich auf dem Bett und schaut zur Kamera.",
+      "en": "Elsa lies comfortably on the bed and looks toward the camera."
+    }
+  },
+  "IMG_0155.jpeg": {
+    "name": { "de": "Nachtschicht im Nest", "en": "Night Shift in the Nest" },
+    "mood": { "de": "wach, aber nur innerlich", "en": "awake in theory" },
+    "description": {
+      "de": "Wenn sie sich gut genug versteckt, zählt das vielleicht schon als Ausschlafen.",
+      "en": "If she hides well enough, perhaps that counts as a lie-in."
+    },
+    "alt": {
+      "de": "Elsa liegt auf dem Bett, halb unter einer Decke.",
+      "en": "Elsa is on the bed, partly tucked beneath a duvet."
+    }
+  },
+  "IMG_2092.jpeg": {
+    "name": { "de": "Deckenrand-Detektivin", "en": "Duvet-Edge Detective" },
+    "mood": { "de": "vorsichtig interessiert", "en": "cautiously interested" },
+    "description": {
+      "de": "Sie sieht dich. Sie wartet nur, bis du zuerst etwas sagst.",
+      "en": "She sees you. She is just waiting for you to say something first."
+    },
+    "alt": {
+      "de": "Elsa schaut mit dem Kopf aus einer Decke hervor.",
+      "en": "Elsa peeks out from behind a duvet."
+    }
+  },
+  "IMG_2225.JPG": {
+    "name": { "de": "Pfoten auf Bereitschaft", "en": "Paws on Standby" },
+    "mood": { "de": "entspannt, aber zuständig", "en": "relaxed but in charge" },
+    "description": {
+      "de": "Die Vorderpfoten sind sortiert. Der Rest des Tages kann warten.",
+      "en": "Front paws are in order. The rest of the day can wait."
+    },
+    "alt": {
+      "de": "Elsa liegt lang ausgestreckt auf dem Bett und hat den Kopf auf einem Kissen.",
+      "en": "Elsa stretches out on the bed with her head on a pillow."
+    }
+  },
+  "IMG_9319.jpeg": {
+    "name": { "de": "Ein-Auge-Späherin", "en": "One-Eye Scout" },
+    "mood": { "de": "fast eingeschlafen", "en": "almost asleep" },
+    "description": {
+      "de": "Die Decke ist schon oben. Das eine Auge macht noch eine Kontrollrunde.",
+      "en": "The duvet is already up. One eye is still doing a final check."
+    },
+    "alt": {
+      "de": "Elsa schaut mit einem Auge über die Decke.",
+      "en": "Elsa looks over the duvet with one eye open."
+    }
+  },
+  "IMG_9454.jpeg": {
+    "name": { "de": "Sofakanten-Inspektorin", "en": "Sofa-Edge Inspector" },
+    "mood": { "de": "unauffällig auffällig", "en": "sneaky but obvious" },
+    "description": {
+      "de": "Sie schaut nur kurz nach, ob der Weg zum Kissen frei ist.",
+      "en": "She is only checking whether the route to the cushion is clear."
+    },
+    "alt": {
+      "de": "Elsa lugt hinter einem Kissen hervor.",
+      "en": "Elsa peeks out from behind a cushion."
+    }
+  },
+  "IMG_9949.jpeg": {
+    "name": { "de": "Sonnenplatz-Besitzerin", "en": "Keeper of the Sunspot" },
+    "mood": { "de": "sonnenwarm und zufrieden", "en": "sun-warmed and content" },
+    "description": {
+      "de": "Der Sonnenplatz war frei. Elsa hat sich selbstverständlich darum gekümmert.",
+      "en": "The sunny spot was free. Naturally, Elsa took care of it."
+    },
+    "alt": {
+      "de": "Elsa sitzt im warmen Sonnenlicht auf dem Bett.",
+      "en": "Elsa sits in warm sunlight on the bed."
+    }
+  }
+}

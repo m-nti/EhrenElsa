@@ -1,7 +1,8 @@
-# Lucky Elsa — Product Requirements Document
+# Elsen — Product Requirements Document
 
-**Product:** Lucky Elsa, a static website where you open a pack and get five collectible cards of the
-dog Elsa. Every card is one photo with a printed name, a funny sentence, a mood and three ratings.
+**Product:** Elsen, a static website where you open a pack and get five collectible cards of the
+dog Elsa. Each card pairs one supplied photo with its bilingual, photo-specific name, mood and
+caption; optional `/10` values are manually matched jokes, visibly marked as imaginary.
 **Audience for this document:** the owner, plus whoever helps build, design, write and ship it.
 **Status:** v1 built and running locally; awaiting real photos and the upload to the IONOS domain.
 **Version:** 2.0 · 2026-10-31
@@ -32,8 +33,8 @@ reason to be looked at again, and the family wants one reason to look.
 them is either work for me or boring for them."*
 
 **Why a pack:** five cards at once gives a small payoff per click and something to keep and compare,
-without pretending to be a product. Each card gets a name and ratings, so a photo becomes "my"
-Sofa-Königin instead of the fourth picture in a folder.
+without pretending to be a product. Each supplied photo gets its own title and caption, so it becomes
+"my" card rather than the fourth picture in a folder.
 
 ---
 
@@ -97,7 +98,8 @@ Sofa-Königin instead of the fourth picture in a folder.
 | # | Requirement | Done when |
 | --- | --- | --- |
 | F1 | Opening the pack produces five cards at once (all of them, if there are fewer photos) | One click fills the drop row with five cards |
-| F2 | Every card is one photo plus a printed name, one funny sentence, one mood and three ratings from 1 to 10 | Each card shows all four things; the ratings are Energie, Leckerli-Fokus and Wildheit |
+| F2 | Every supplied card shows its photo-specific bilingual name, mood and caption | All ten current images use their explicit overrides; missing real-photo captions fall back to neutral copy, not invented activities |
+| F2a | Optional `/10` values are explicitly imaginary and matched to the depicted photo | A visible "Fantasiewerte · nur zum Spaß" / "Imaginary stats · just for fun" label precedes them |
 | F3 | A photo's rarity belongs to the photo: it comes from its own id, not from the shuffle | The same photo is always häufig, selten or holo — after a reload, after another pack, and in a deep link |
 | F4 | Every pack holds at least one rare or holographic card | If the draw is all commons, one card in that pack is promoted to holographic |
 | F5 | No card appears twice inside one pack | With five cards, five different photos come out |
@@ -105,7 +107,7 @@ Sofa-Königin instead of the fourth picture in a folder.
 | F7 | German is the default on first visit | `<html lang="de">` and German card text before any interaction |
 | F8 | `DE` / `EN` toggle switches every visible string immediately | Headline, buttons, card names, sentences, moods, rarity labels, aria labels, `<title>`, progress and `og:locale` all switch |
 | F9 | Language choice persists and is overridable by URL | Stored in `localStorage`; `?lang=de` beats a stored English; `?lang=en` beats the German default |
-| F10 | Name, sentence and mood exist in German and English as index-aligned twins | The same card keeps its joke when the language flips; adding one means adding both |
+| F10 | Photo overrides for name, sentence, mood and alt text are bilingual | Switching language preserves the same pictured moment and joke |
 | F11 | Binder grid below the pack with every card as a reachable button, openable one by one | Each tile has an accessible name and says whether it has been seen |
 | F12 | Deep link to one card | `?photo=<id>` opens that card big, in the right language |
 | F13 | Progress display | "Du hast 3 von 24 gesehen" / "You have seen 3 of 24", with a progress bar |
@@ -150,12 +152,12 @@ Sofa-Königin instead of the fourth picture in a folder.
 | **Hosting** | Static files on IONOS via FTP or the webspace explorer; PHP optional and optional-only. Nothing needs to be built on the server. |
 | **Compatibility** | Current Safari, Chrome, Firefox, Edge; iOS Safari and Android Chrome. Graceful, understandable degradation without JavaScript. |
 | **Performance** | No layout shift on load, no blocking third-party requests, thumbnails lazy-loaded in the binder, display copies capped at 720 px. Feels instant on mobile data. |
-| **Accessibility** | WCAG 2.2 AA target: keyboard operable, visible focus, `aria-pressed` on toggles, live regions, reduced motion honoured, contrast from the theme tokens (`Halftone`), German and English declared per element where it matters. |
-| **Bilingual** | The copy deck lives in `assets/js/app.js` (`COPY.de`, `COPY.en`); the card bank lives in `assets/js/card-bank.js`. German and English arrays are index-aligned. No string is duplicated in the markup; German is what a first-time visitor sees. |
+| **Accessibility** | WCAG 2.2 AA target: keyboard operable, visible focus, `aria-pressed` on toggles, live regions, reduced motion honoured, readable contrast, German and English declared per element where it matters. |
+| **Bilingual** | UI copy lives in `assets/js/app.js` (`COPY.de`, `COPY.en`); supplied-photo descriptions live in `photos/captions.json`; the bank is only fallback/demo content. German is what a first-time visitor sees. |
 | **Privacy** | No cookies, no analytics, no third-party embeds, no external fonts or CDNs. Local storage only, on the visitor's device. Photos are not indexed or listable. |
 | **Security** | No executable code in `photos/`; PHP resolves real paths inside `photos/` only and refuses anything that is not an image; `X-Content-Type-Options: nosniff`, `Referrer-Policy`, no directory indexing. |
 | **Maintainability** | Five files carry the product: `index.html`, `assets/css/style.css`, `assets/css/cards.css`, `assets/js/app.js`, `assets/js/card-bank.js`. Everything else is a helper or generated. Adding a photo is a file drop. |
-| **Design** | Hallmark v2 theme *Halftone* (dealt 3/3): butter-cream paper, brown-black ink, slab display type, 3 px rules, flat print-and-carnival feel. **Mint `#72efdd` is the single spot colour**; because it is light, text and readable borders use its dark teal companion instead. Playful without being childish; nothing looks templated. |
+| **Design** | Dark velvet gallery, soft overhead spotlight, pearl-metal card frames, indigo-black plates, layered iridescent foil, diagonal glare and procedural glitter. Elsa's photographs remain the art. Rarity changes the foil strength, not the photo. The pack tears open in the center of the viewport and cards reveal one at a time. |
 | **Tone of voice** | Family-and-friends register in both languages. German card text addresses the reader as *du*, never *Sie*. No marketing voice, no invented numbers, no testimonials, no exclamation-mark confetti. English is plain and warm. |
 
 ---
@@ -169,7 +171,7 @@ owner's own counters.
 | --- | --- | --- | --- |
 | M1 | It ships and stays up | Public URL opens without an error, 100% of manual checks after each upload | Manual load on desktop and phone |
 | M2 | A pack is complete and fair | 5 cards, none repeated inside the pack, at least one rare or holographic | `npm run qa` |
-| M3 | A card keeps its identity | The same photo shows the same rarity and the same three ratings a week later | Write one card down, reopen it by deep link on another day |
+| M3 | A card keeps its identity | The same photo retains its bilingual caption, stable rarity and manually assigned imaginary play values | Reopen it by deep link in either language |
 | M4 | Both languages are complete | 0 untranslated strings after switching; German default confirmed every session | Manual pass plus `npm run qa` assertions |
 | M5 | Nobody gets stuck | Every person who receives the link opens a pack unaided | Watch 3–5 people once, do not explain |
 | M6 | Cards actually get opened | More than one card out of the five gets opened big | Ask which card they liked; count the "gesehen" marks when someone hands the phone back |
@@ -184,7 +186,7 @@ owner's own counters.
 **In scope (v1, built)**
 
 - Static one-page site: pack, five-card drop, big card dialog, binder grid, progress, start over.
-- Cards with printed name, sentence, mood and three ratings, in German and English.
+- Cards with photo-specific bilingual name, mood, caption and clearly imaginary per-photo play values.
 - Fixed rarity per photo from its own id, with at least one rare or holographic card per pack.
 - German default and English option with a `DE` / `EN` toggle, persisted and URL-overridable.
 - Photo discovery from PHP live list or `photos.json`, with an empty state that explains itself.
@@ -210,7 +212,7 @@ owner's own counters.
 - The owner's time is the scarcest resource. Adding a photo must stay a file drop.
 - Personal photos: privacy failures are worse than feature gaps.
 - No external network dependencies at runtime: fonts, CSS, JS and the HEIC decoder are self-hosted.
-- German and English card banks must stay index-aligned; adding a name means adding it in both.
+- German and English photo captions and play-value labels must stay paired; new photos need explicit factual captions before descriptive copy ships.
 
 **Timeline**
 
@@ -228,21 +230,16 @@ All of v1 was built in one session. Remaining work is content, not code: put rea
 | R3 | A pack repeats a card too soon and the visitor thinks it is broken | Medium | Unseen-first draw, no repeat inside a pack, automatic new round with an announcement, progress display, manual "Von vorn" |
 | R4 | Very large originals make the binder slow on mobile | Medium | 720 px display copies on cards and tiles; the original only in the dialog and in "Foto speichern" |
 | R5 | German and English drift apart after an edit | Medium | One copy deck and one card bank with both languages next to each other; index-aligned arrays; `npm run qa` checks key strings in both |
-| R6 | The card text comes from a bank and starts to feel repetitive once there are more photos than entries: 24 names, 30 sentences, 14 moods | Medium | Extend the bank in `assets/js/card-bank.js` in both languages at the same index, and let the owner override name, sentence, mood and rarity per photo in `photos/captions.json` |
+| R6 | A new photo gets inaccurate or generic copy | Medium | Add bilingual per-photo name, mood, description and alt text in `photos/captions.json`; unknown real photos use neutral copy until then |
 | R7 | HEIC cannot be converted anywhere (no Imagick on the host, decoder fails in the browser) | Medium | Owner converts to JPEG locally; the site still lists the file, and the card frame stays readable without the picture |
-| R8 | Hallmark/lint reflex findings get mistaken for bugs | Low | Findings are logged here as accepted (see below); the site is intentionally a small, card-heavy one-pager |
+| R8 | Holographic effects distract from Elsa's photo or still read as a static gradient | Medium | Keep the strongest foil on rare/holo cards, drive it from pointer tilt and spring motion, add glitter and glare as independent layers, and check against the real photos at desktop and mobile sizes |
 | R9 | `photos.php` misbehaves or PHP is disabled | Low | It only ever serves files inside `photos/`, and the app falls back to `photos.json` on any failure. Note: PHP could not be syntax-checked locally (no PHP binary); it needs a first load on the server. |
 | R10 | Facebook or WhatsApp do not render the preview image | Low | Use an absolute `https://…/assets/og.png` once the domain is live |
-| R11 | Font licensing on the server | Low | Ultra and Chivo are open-licensed and self-hosted; no Google Fonts request |
+| R11 | Font licensing on the server | Low | Chivo is open-licensed and self-hosted; no Google Fonts request |
 
-**Accepted Hallmark render findings** (warnings and reflexes, no failures) — the page is a
-deliberately small, card-heavy one-pager, so these are design decisions, not defects:
-
-- 83 words on the first screen (budget is ~80) — one headline, one sentence, two buttons.
-- 3 sections only — pack, binder, colophon is the whole product.
-- Photos cover 43% of the page below the hero — that is the content.
-- Hero visual sits 149 px from the text — the pack is a large object by nature.
-- Large pack seal and card tile controls — deliberate 44 px+ touch targets.
+**Design experiment (planned, not a claim of validated success):** at least 4 of 5 family or
+friend testers should open a pack, understand the reveal, and open one card without instructions.
+Use the sessions to find usability problems, not to make a statistical claim from a small sample.
 
 ---
 
@@ -278,7 +275,8 @@ of this document's plan.
 | --- | --- |
 | `skill-router` | Matching each task to a skill or agent, keeping the catalogue honest |
 | `create-prd` | This document's structure, the "specify only what changes a decision" discipline |
-| `hallmark` (v2, theme *Halftone*) | Design system, theme deal, render/sloplint gates, the "looks designed not generated" bar |
+| `product-designer` | Design critique, component hierarchy, usability checks and visual handoff |
+| `brainstorm-experiments` | A low-cost pack-opening usability experiment with a pre-set threshold |
 | `product-vision` | Keeping the why (one moment for photos nobody sees) ahead of the what |
 | `job-stories` | Personas and user stories in §2 and §3 |
 | `brand-guidelines` | German/English tone of voice, the *du* register, what the copy is never allowed to sound like |
@@ -297,7 +295,7 @@ of this document's plan.
 | --- | --- |
 | `cs-product-manager` | Prioritising P0/P1/P2, deciding what never gets built |
 | `cs-ux-researcher` | Personas, and the "watch once, do not explain" way of validating M5 |
-| `cs-design-lead` | Sign-off on the Hallmark theme application and the printed card |
+| `cs-design-lead` | Sign-off on the dark gallery, procedural holo treatment and card/pack hierarchy |
 | `cs-frontend-engineer` | Pack mechanics, fixed rarity, card bank wiring, deep links, the copy deck |
 | `cs-accessibility-engineer` | Screen-reader pass on the pack, the card dialog and the language toggle |
 | `cs-qa-automation-lead` | Automated checks for pack size, uniqueness, one shine per pack, language switch, overflow, empty state |
@@ -314,7 +312,8 @@ of this document's plan.
 - `npm run qa` passes: German default, English switch and persistence, five cards per pack, no card
   twice in a pack, at least one rare or holographic card, a printed name on every card,
   `?photo=` deep link, no horizontal overflow at 390 and 1280, empty state, no-JS notice.
-- No failing Hallmark render gate; remaining warnings accepted and listed in §8.
+- Open a pack at desktop and phone sizes; the wrapper tears away and the five cards reveal in order.
+- Opened card fits the phone dialog without scrolling; card flip, share and download controls work.
 - Real photos in `photos/`, `npm run photos` run, uploaded together with `index.html`, `assets/`,
   `photos.php`, `.htaccess`, `robots.txt`.
 - The link opens on a phone in the family chat and produces a laugh within ten seconds.

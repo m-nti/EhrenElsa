@@ -1,97 +1,35 @@
 {
-  "generated": "2026-10-31T17:01:40.081Z",
+  "generated": "2026-11-01T09:34:10.827Z",
   "source": "photos",
   "photos": [
     {
-      "id": "crop-01",
-      "src": "photos/crop-01.jpg",
-      "thumb": "photos/thumbs/crop-01.jpg",
-      "view": "photos/crop-01.jpg",
-      "filename": "crop-01.jpg",
+      "id": "233a150f-1a63-408f-b8a6-6852e8cec51b",
+      "src": "photos/233A150F-1A63-408F-B8A6-6852E8CEC51B.jpg",
+      "thumb": "photos/thumbs/233a150f-1a63-408f-b8a6-6852e8cec51b.jpg",
+      "view": "photos/233A150F-1A63-408F-B8A6-6852E8CEC51B.jpg",
+      "filename": "233A150F-1A63-408F-B8A6-6852E8CEC51B.jpg",
       "caption": "",
-      "alt": "",
+      "alt": {
+        "de": "Elsa schläft zusammengerollt auf einer grünen Decke.",
+        "en": "Elsa is curled up asleep on a green duvet."
+      },
+      "name": {
+        "de": "Abgemeldet auf Grün",
+        "en": "Offline on the Green"
+      },
+      "mood": {
+        "de": "tief im Traum",
+        "en": "deep in a dream"
+      },
+      "description": {
+        "de": "Der Tag kann warten. Elsa hat sich mit der Decke geeinigt.",
+        "en": "The day can wait. Elsa has reached an understanding with the duvet."
+      },
+      "rarity": "",
       "demo": false,
       "heic": false,
-      "width": 1200,
-      "height": 1200
-    },
-    {
-      "id": "crop-02",
-      "src": "photos/crop-02.jpg",
-      "thumb": "photos/thumbs/crop-02.jpg",
-      "view": "photos/crop-02.jpg",
-      "filename": "crop-02.jpg",
-      "caption": "",
-      "alt": "",
-      "demo": false,
-      "heic": false,
-      "width": 1200,
-      "height": 1200
-    },
-    {
-      "id": "crop-03",
-      "src": "photos/crop-03.jpg",
-      "thumb": "photos/thumbs/crop-03.jpg",
-      "view": "photos/crop-03.jpg",
-      "filename": "crop-03.jpg",
-      "caption": "",
-      "alt": "",
-      "demo": false,
-      "heic": false,
-      "width": 1200,
-      "height": 1200
-    },
-    {
-      "id": "crop-04",
-      "src": "photos/crop-04.jpg",
-      "thumb": "photos/thumbs/crop-04.jpg",
-      "view": "photos/crop-04.jpg",
-      "filename": "crop-04.jpg",
-      "caption": "",
-      "alt": "",
-      "demo": false,
-      "heic": false,
-      "width": 1200,
-      "height": 1200
-    },
-    {
-      "id": "crop-05",
-      "src": "photos/crop-05.jpg",
-      "thumb": "photos/thumbs/crop-05.jpg",
-      "view": "photos/crop-05.jpg",
-      "filename": "crop-05.jpg",
-      "caption": "",
-      "alt": "",
-      "demo": false,
-      "heic": false,
-      "width": 1200,
-      "height": 1200
-    },
-    {
-      "id": "crop-06",
-      "src": "photos/crop-06.jpg",
-      "thumb": "photos/thumbs/crop-06.jpg",
-      "view": "photos/crop-06.jpg",
-      "filename": "crop-06.jpg",
-      "caption": "",
-      "alt": "",
-      "demo": false,
-      "heic": false,
-      "width": 1200,
-      "height": 1200
-    },
-    {
-      "id": "crop-07",
-      "src": "photos/crop-07.jpg",
-      "thumb": "photos/thumbs/crop-07.jpg",
-      "view": "photos/crop-07.jpg",
-      "filename": "crop-07.jpg",
-      "caption": "",
-      "alt": "",
-      "demo": false,
-      "heic": false,
-      "width": 1200,
-      "height": 1200
+      "width": 3840,
+      "height": 2160
     },
     {
       "id": "elsa-01",
@@ -100,11 +38,259 @@
       "view": "photos/elsa-01.jpg",
       "filename": "elsa-01.jpg",
       "caption": "",
-      "alt": "",
+      "alt": {
+        "de": "Elsa schaut auf dem Sofa direkt in die Kamera.",
+        "en": "Elsa looks straight at the camera from the sofa."
+      },
+      "name": {
+        "de": "Blickkontakt-Expertin",
+        "en": "Eye Contact Expert"
+      },
+      "mood": {
+        "de": "aufmerksam bis zur Nasenspitze",
+        "en": "alert to the tip of her nose"
+      },
+      "description": {
+        "de": "Sie wartet auf den nächsten Hinweis. Oder auf ein Leckerli. Wahrscheinlich beides.",
+        "en": "She is waiting for the next clue. Or a treat. Probably both."
+      },
+      "rarity": "",
       "demo": false,
       "heic": false,
       "width": 5712,
       "height": 4284
+    },
+    {
+      "id": "img-0018",
+      "src": "photos/IMG_0018.jpeg",
+      "thumb": "photos/thumbs/img-0018.jpg",
+      "view": "photos/IMG_0018.jpeg",
+      "filename": "IMG_0018.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa schaut unter einer hellen Decke hervor.",
+        "en": "Elsa peeks out from beneath a pale duvet."
+      },
+      "name": {
+        "de": "Deckenhöhlen-Späherin",
+        "en": "Duvet-Cave Scout"
+      },
+      "mood": {
+        "de": "heimlich neugierig",
+        "en": "quietly curious"
+      },
+      "description": {
+        "de": "Ein Auge draußen, der Rest noch im Bett. Sie hat trotzdem alles im Blick.",
+        "en": "One eye out, the rest still in bed. She is keeping tabs on everything."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": "img-0132",
+      "src": "photos/IMG_0132.jpeg",
+      "thumb": "photos/thumbs/img-0132.jpg",
+      "view": "photos/IMG_0132.jpeg",
+      "filename": "IMG_0132.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa liegt gemütlich auf dem Bett und schaut zur Kamera.",
+        "en": "Elsa lies comfortably on the bed and looks toward the camera."
+      },
+      "name": {
+        "de": "Kissen mit Aufsicht",
+        "en": "Pillow Supervisor"
+      },
+      "mood": {
+        "de": "gemütlich mit Überblick",
+        "en": "cosy with a view"
+      },
+      "description": {
+        "de": "Sie hat den bequemsten Platz gefunden und prüft, ob du das bemerkt hast.",
+        "en": "She found the comfiest spot and is checking whether you noticed."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": "img-0155",
+      "src": "photos/IMG_0155.jpeg",
+      "thumb": "photos/thumbs/img-0155.jpg",
+      "view": "photos/IMG_0155.jpeg",
+      "filename": "IMG_0155.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa liegt auf dem Bett, halb unter einer Decke.",
+        "en": "Elsa is on the bed, partly tucked beneath a duvet."
+      },
+      "name": {
+        "de": "Nachtschicht im Nest",
+        "en": "Night Shift in the Nest"
+      },
+      "mood": {
+        "de": "wach, aber nur innerlich",
+        "en": "awake in theory"
+      },
+      "description": {
+        "de": "Wenn sie sich gut genug versteckt, zählt das vielleicht schon als Ausschlafen.",
+        "en": "If she hides well enough, perhaps that counts as a lie-in."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": "img-2092",
+      "src": "photos/IMG_2092.jpeg",
+      "thumb": "photos/thumbs/img-2092.jpg",
+      "view": "photos/IMG_2092.jpeg",
+      "filename": "IMG_2092.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa schaut mit dem Kopf aus einer Decke hervor.",
+        "en": "Elsa peeks out from behind a duvet."
+      },
+      "name": {
+        "de": "Deckenrand-Detektivin",
+        "en": "Duvet-Edge Detective"
+      },
+      "mood": {
+        "de": "vorsichtig interessiert",
+        "en": "cautiously interested"
+      },
+      "description": {
+        "de": "Sie sieht dich. Sie wartet nur, bis du zuerst etwas sagst.",
+        "en": "She sees you. She is just waiting for you to say something first."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": "img-2225",
+      "src": "photos/IMG_2225.JPG",
+      "thumb": "photos/thumbs/img-2225.jpg",
+      "view": "photos/IMG_2225.JPG",
+      "filename": "IMG_2225.JPG",
+      "caption": "",
+      "alt": {
+        "de": "Elsa liegt lang ausgestreckt auf dem Bett und hat den Kopf auf einem Kissen.",
+        "en": "Elsa stretches out on the bed with her head on a pillow."
+      },
+      "name": {
+        "de": "Pfoten auf Bereitschaft",
+        "en": "Paws on Standby"
+      },
+      "mood": {
+        "de": "entspannt, aber zuständig",
+        "en": "relaxed but in charge"
+      },
+      "description": {
+        "de": "Die Vorderpfoten sind sortiert. Der Rest des Tages kann warten.",
+        "en": "Front paws are in order. The rest of the day can wait."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 719,
+      "height": 1279
+    },
+    {
+      "id": "img-9319",
+      "src": "photos/IMG_9319.jpeg",
+      "thumb": "photos/thumbs/img-9319.jpg",
+      "view": "photos/IMG_9319.jpeg",
+      "filename": "IMG_9319.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa schaut mit einem Auge über die Decke.",
+        "en": "Elsa looks over the duvet with one eye open."
+      },
+      "name": {
+        "de": "Ein-Auge-Späherin",
+        "en": "One-Eye Scout"
+      },
+      "mood": {
+        "de": "fast eingeschlafen",
+        "en": "almost asleep"
+      },
+      "description": {
+        "de": "Die Decke ist schon oben. Das eine Auge macht noch eine Kontrollrunde.",
+        "en": "The duvet is already up. One eye is still doing a final check."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": "img-9454",
+      "src": "photos/IMG_9454.jpeg",
+      "thumb": "photos/thumbs/img-9454.jpg",
+      "view": "photos/IMG_9454.jpeg",
+      "filename": "IMG_9454.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa lugt hinter einem Kissen hervor.",
+        "en": "Elsa peeks out from behind a cushion."
+      },
+      "name": {
+        "de": "Sofakanten-Inspektorin",
+        "en": "Sofa-Edge Inspector"
+      },
+      "mood": {
+        "de": "unauffällig auffällig",
+        "en": "sneaky but obvious"
+      },
+      "description": {
+        "de": "Sie schaut nur kurz nach, ob der Weg zum Kissen frei ist.",
+        "en": "She is only checking whether the route to the cushion is clear."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "id": "img-9949",
+      "src": "photos/IMG_9949.jpeg",
+      "thumb": "photos/thumbs/img-9949.jpg",
+      "view": "photos/IMG_9949.jpeg",
+      "filename": "IMG_9949.jpeg",
+      "caption": "",
+      "alt": {
+        "de": "Elsa sitzt im warmen Sonnenlicht auf dem Bett.",
+        "en": "Elsa sits in warm sunlight on the bed."
+      },
+      "name": {
+        "de": "Sonnenplatz-Besitzerin",
+        "en": "Keeper of the Sunspot"
+      },
+      "mood": {
+        "de": "sonnenwarm und zufrieden",
+        "en": "sun-warmed and content"
+      },
+      "description": {
+        "de": "Der Sonnenplatz war frei. Elsa hat sich selbstverständlich darum gekümmert.",
+        "en": "The sunny spot was free. Naturally, Elsa took care of it."
+      },
+      "rarity": "",
+      "demo": false,
+      "heic": false,
+      "width": 3024,
+      "height": 4032
     }
   ]
 }

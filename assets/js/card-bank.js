@@ -1,6 +1,7 @@
-/* Lucky Elsa — card bank.
-   Everything a collectible card needs: one description, one mood, one title,
-   three stats and a rarity tier, in German and English.
+/* Elsen — card bank.
+   The supplied photos own their name, mood, caption and alt text in
+   photos/captions.json. This file supplies bilingual fallback copy, rarity
+   labels and explicitly imaginary, manually photo-matched play values.
    German and English arrays are index-aligned: index N in German is the same
    joke as index N in English, so a card keeps its idea when the language flips.
    Plain ES5, no imports, no exports: it only sets window.ELSA_CARD_BANK. */
@@ -165,25 +166,84 @@
     ]
   };
 
-  // Three stats only — the card layout has room for exactly three rows.
-  var stats = [
-    { key: { de: "Energie", en: "Energy" }, unit: "/10", max: 10 },
-    { key: { de: "Leckerli-Fokus", en: "Treat focus" }, unit: "/10", max: 10 },
-    { key: { de: "Wildheit", en: "Wildness" }, unit: "/10", max: 10 }
-  ];
+  // Scores are editorial jokes, not claims about Elsa's abilities. Labels and
+  // values are matched to the visible pose in each supplied image.
+  var photoTraits = {
+    de: {
+      "233A150F-1A63-408F-B8A6-6852E8CEC51B.jpg": [
+        { key: "Schlafmodus", value: 10 }, { key: "Deckenbindung", value: 10 }, { key: "Blickkontakt", value: 1 }
+      ],
+      "elsa-01.jpg": [
+        { key: "Blickkontakt", value: 10 }, { key: "Aufmerksamkeit", value: 9 }, { key: "Sofakomfort", value: 9 }
+      ],
+      "IMG_0018.jpeg": [
+        { key: "Höhlenfaktor", value: 9 }, { key: "Spähblick", value: 8 }, { key: "Deckenbindung", value: 10 }
+      ],
+      "IMG_0132.jpeg": [
+        { key: "Kuschelfaktor", value: 10 }, { key: "Deckenbindung", value: 10 }, { key: "Spähblick", value: 7 }
+      ],
+      "IMG_0155.jpeg": [
+        { key: "Versteckspiel", value: 9 }, { key: "Kuschelmodus", value: 10 }, { key: "Wachsamkeit", value: 6 }
+      ],
+      "IMG_2092.jpeg": [
+        { key: "Spähblick", value: 9 }, { key: "Deckenrand", value: 10 }, { key: "Geduld", value: 8 }
+      ],
+      "IMG_2225.JPG": [
+        { key: "Pfoten-Parkplatz", value: 10 }, { key: "Ruhemodus", value: 9 }, { key: "Blickkontakt", value: 6 }
+      ],
+      "IMG_9319.jpeg": [
+        { key: "Ein-Auge-Wache", value: 10 }, { key: "Schlafmodus", value: 9 }, { key: "Deckenbindung", value: 10 }
+      ],
+      "IMG_9454.jpeg": [
+        { key: "Kissenversteck", value: 10 }, { key: "Blickkontakt", value: 8 }, { key: "Unauffälligkeit", value: 2 }
+      ],
+      "IMG_9949.jpeg": [
+        { key: "Sonnenplatz", value: 10 }, { key: "Ruhemodus", value: 8 }, { key: "Blickkontakt", value: 7 }
+      ]
+    },
+    en: {
+      "233A150F-1A63-408F-B8A6-6852E8CEC51B.jpg": [
+        { key: "Nap mode", value: 10 }, { key: "Duvet loyalty", value: 10 }, { key: "Eye contact", value: 1 }
+      ],
+      "elsa-01.jpg": [
+        { key: "Eye contact", value: 10 }, { key: "Attention", value: 9 }, { key: "Sofa comfort", value: 9 }
+      ],
+      "IMG_0018.jpeg": [
+        { key: "Cave factor", value: 9 }, { key: "Sneaky peek", value: 8 }, { key: "Duvet loyalty", value: 10 }
+      ],
+      "IMG_0132.jpeg": [
+        { key: "Cuddle factor", value: 10 }, { key: "Duvet loyalty", value: 10 }, { key: "Sneaky peek", value: 7 }
+      ],
+      "IMG_0155.jpeg": [
+        { key: "Hide-and-seek", value: 9 }, { key: "Cuddle mode", value: 10 }, { key: "One-eye watch", value: 6 }
+      ],
+      "IMG_2092.jpeg": [
+        { key: "Sneaky peek", value: 9 }, { key: "Duvet edge", value: 10 }, { key: "Patience", value: 8 }
+      ],
+      "IMG_2225.JPG": [
+        { key: "Paw parking", value: 10 }, { key: "Rest mode", value: 9 }, { key: "Eye contact", value: 6 }
+      ],
+      "IMG_9319.jpeg": [
+        { key: "One-eye watch", value: 10 }, { key: "Nap mode", value: 9 }, { key: "Duvet loyalty", value: 10 }
+      ],
+      "IMG_9454.jpeg": [
+        { key: "Cushion hideout", value: 10 }, { key: "Eye contact", value: 8 }, { key: "Stealth", value: 2 }
+      ],
+      "IMG_9949.jpeg": [
+        { key: "Sunspot", value: 10 }, { key: "Rest mode", value: 8 }, { key: "Eye contact", value: 7 }
+      ]
+    }
+  };
 
   var rarities = {
     common: {
-      label: { de: "Häufig", en: "Common" },
-      flavour: { de: "Immer gute Laune, überall zu finden.", en: "Good company, easy to find." }
+      label: { de: "Häufig", en: "Common" }
     },
     rare: {
-      label: { de: "Selten", en: "Rare" },
-      flavour: { de: "Ein seltener Anblick. Gut aufheben.", en: "A rarer sight. Worth holding on to." }
+      label: { de: "Selten", en: "Rare" }
     },
     holo: {
-      label: { de: "Holo-Pracht", en: "Holo glory" },
-      flavour: { de: "Schimmert im Licht und weiß das auch.", en: "It catches the light and knows it." }
+      label: { de: "Holo-Pracht", en: "Holo glory" }
     }
   };
 
@@ -192,14 +252,14 @@
       lines: lines.de,
       moods: moods.de,
       names: names.de,
-      stats: stats,
+      photoTraits: photoTraits.de,
       rarities: rarities
     },
     en: {
       lines: lines.en,
       moods: moods.en,
       names: names.en,
-      stats: stats,
+      photoTraits: photoTraits.en,
       rarities: rarities
     }
   };

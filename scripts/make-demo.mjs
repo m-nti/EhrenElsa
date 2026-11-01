@@ -183,7 +183,7 @@ function cardHtml({ number, motif, paper, accent, tilt }) {
 <body>
   <article class="sheet">
     <div class="top">
-      <p class="brand">Lucky Elsa</p>
+      <p class="brand">Elsen</p>
       <p class="number">No. ${label}</p>
     </div>
     <div class="middle">

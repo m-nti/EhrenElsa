@@ -1,7 +1,8 @@
-# Lucky Elsa
+# Elsen
 
-A small static site where you open a pack and get five random collectible cards of Elsa — each
-with its own name, mood, ratings and, if you are lucky, a holographic finish. Made to share with
+A small static site where you open a pack and get five collectible cards of Elsa — each
+with its own bilingual photo caption, mood and clearly imaginary, photo-matched play values.
+One card in every pack gets a holographic finish. Made to share with
 friends and family. Everything a visitor sees comes out of one folder, so it can be
 dropped on any IONOS webspace over FTP.
 
@@ -9,18 +10,18 @@ dropped on any IONOS webspace over FTP.
   header; the choice is remembered and can also be forced with `?lang=de` or `?lang=en`.
 - **No build step for the visitor.** Plain HTML, CSS and JavaScript, self-hosted fonts, no
   framework, no cookie banner, no tracking.
-- **Mint `#72efdd` is the only spot colour.** Because it is light, every piece of text and every
-  border that needs to be readable uses the dark teal `--color-accent-strong` instead.
+- **A velvet-gallery look with opal foil.** Deep plum-black surfaces and pearl-metal frames keep
+  Elsa's photos central; rainbow foil, glitter and glare are reserved for the cards and pack.
 
 ## What is in here
 
 ```
 index.html              the page
-assets/css/style.css    layout and theme (Hallmark "Halftone": butter-cream paper, brown-black ink)
+assets/css/style.css    dark gallery, pack stage, collection, navigation and dialog
 assets/js/app.js        pack and card logic, German and English copy, sharing, keyboard
 assets/js/card-bank.js  the bank of German and English card names, lines, moods and rarities
-assets/css/cards.css    the card itself: holographic foil, rarity, mood and ratings
-assets/fonts/           Ultra and Chivo, self-hosted
+assets/css/cards.css    the card itself: holographic foil, rarity and photo-matched details
+assets/fonts/           Chivo, self-hosted
 assets/og.png           preview image for shared links
 demo/                   eight sample cards so the site works out of the box
 photos/                 your real photos go here (empty until you fill it)
@@ -36,7 +37,8 @@ npm install       # only needed for the helper scripts (puppeteer-core)
 npm run serve     # serves the folder at http://localhost:4173
 ```
 
-Open <http://localhost:4173> and click the pack. Five cards drop out; click one to see it big.
+Open <http://localhost:4173> and click the pack. The wrapper tears, five cards rise into view, and
+you can open one to flip it or save and share the photo.
 
 There is also `PRD.md`: why the site exists, what it promises, what it deliberately does not do,
 and which skills and agents own which part of it.
@@ -53,7 +55,7 @@ and which skills and agents own which part of it.
 
    This writes `photos.json`, makes 720 px thumbnails in `photos/thumbs/`, and rewrites the
    manifest. Run it again whenever photos change.
-3. Upload everything to the server (except `node_modules/`, `scripts/`, `qa-shots/`, `.hallmark/`).
+3. Upload everything to the server (except `node_modules/`, `scripts/` and `qa-shots/`).
 
 HEIC files from an iPhone are converted to JPEG once, into `photos/converted/`, because most
 browsers cannot show HEIC. On the server `photos.php` does the same through Imagick when your
@@ -63,20 +65,30 @@ is missing either way.
 If `photos/` holds fewer than eight photos, sample cards fill the set up to eight. Once there
 are eight real ones the samples drop out on their own.
 
-Optional: add captions and alt text in `photos/captions.json`, keyed by filename:
+Names, moods, descriptions and screen-reader alt text are set per photo in `photos/captions.json`,
+keyed by filename. Keep German and English text together so a card still describes the same moment
+after someone changes languages:
 
 ```json
 {
   "elsa-im-garten.jpg": {
-    "caption": "Im Garten, Sommer 2025",
-    "alt": "Elsa steht im Garten und schaut in die Kamera"
-  },
-  "elsa-am-see.jpg": "Nach dem Baden am See"
+    "name": { "de": "Garten-Inspektorin", "en": "Garden Inspector" },
+    "mood": { "de": "aufmerksam", "en": "alert" },
+    "description": {
+      "de": "Der Garten ist geprüft. Ein zweiter Rundgang schadet trotzdem nie.",
+      "en": "The garden has been checked. A second round never hurts."
+    },
+    "alt": {
+      "de": "Elsa steht im Garten und schaut in die Kamera.",
+      "en": "Elsa stands in the garden and looks at the camera."
+    },
+    "rarity": "rare"
+  }
 }
 ```
 
-See `photos/captions.example.json`. Captions show under the photo's award; alt text is what screen
-readers read.
+See `photos/captions.example.json`. `rarity` is optional; allowed values are `common`, `rare` and
+`holo`. Without it, the photo keeps its stable id-based rarity.
 
 ### If you only want to drag photos onto the server
 
@@ -103,8 +115,7 @@ demo/            (only while photos/ holds fewer than eight photos)
 photos.json      (only when you rely on the static manifest)
 ```
 
-Nothing else. Leave `scripts/`, `node_modules/`, `package.json`, `qa-shots/` and `.hallmark/` on the
-Mac.
+Nothing else. Leave `scripts/`, `node_modules/`, `package.json` and `qa-shots/` on the Mac.
 
 Two things to know:
 
@@ -131,25 +142,25 @@ directory listing, no script execution inside `photos/`.
 | `npm run demo`   | Rebuilds the eight sample cards in `demo/`                        |
 | `npm run og`     | Rebuilds `assets/og.png`, the share preview image                 |
 | `npm run serve`  | Serves the folder at <http://localhost:4173>                      |
-| `npm run qa`     | Runs the smoke test and writes screenshots to `qa-shots/`         |
+| `npm run qa`     | Runs UI/interaction checks and writes screenshots to `qa-shots/`  |
 | `npm run check`  | Syntax check for `assets/js/app.js`                               |
 
-`npm run qa` needs `npm run serve` running in another terminal. It checks the German default, the
-English switch, that a lap shows every photo once before repeating, the deep link
-`?photo=<id>`, horizontal overflow at desktop and mobile width, the empty state, and the no-JS
-notice.
+`npm run qa` needs `npm run serve` running in another terminal. It checks bilingual photo content,
+pack/reveal behavior, card flip and opaque back, modal geometry at desktop and compact viewports,
+keyboard focus, silent binder opens, deep links, the empty state, and the no-JS notice.
 
 ## How the pack behaves
 
 - One pack holds five cards, drawn from the ones the visitor has not seen yet, and at least one of
   them is rare or holographic.
-- A photo keeps the same card forever: same name, same sentence, same mood, same ratings — in German
-  and in English, because both decks are picked by the same index.
+- A photo keeps the same bilingual name, mood and caption. `/10` play values are manually matched
+  editorial jokes, visibly labelled as imaginary; they are not measurements of Elsa.
 - Once every photo has been drawn the set starts over on its own, so no one runs out of cards.
 - Cards can be opened from the pack or from the binder below, walked through with `←` and `→`, saved
   or shared as a link. Press `P` to open a pack.
-- Rarity comes from the photo itself, not from luck alone: common cards are flat printed, rare ones
-  get a foil rule, holographic ones shimmer and follow the pointer.
+- Unknown real photos get neutral copy until a bilingual caption is supplied. Optional play values
+  are photo-specific jokes, never generated pseudo-measurements.
+- Rarity is stable per photo, with at least one holo per pack; holo foil shifts with pointer tilt.
 - Every pack tears open with a foil rip and a confetti burst, and a card opening gets its own small
   burst and a short chime. Confetti is a canvas drawn in the set's own colours — no library, no
   image, and nothing at all when sound is off or motion is reduced.

@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lucky Elsa — ein Pack voller Elsa-Karten</title>
+  <title>Elsen — Die Elsa-Sammlung</title>
   <meta name="description" content="Pack öffnen und fünf zufällige Karten von Elsa bekommen. Jede Karte hat ihren eigenen Titel, ihre Laune und ihre Werte.">
-  <meta name="theme-color" content="#f6efdf">
-  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#111017">
+  <meta name="color-scheme" content="dark">
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/ultra-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/chivo-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/cards.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=20261101">
+  <link rel="stylesheet" href="assets/css/cards.css?v=20261101">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Lucky Elsa">
+  <meta property="og:title" content="Elsen">
   <meta property="og:description" content="Ein Pack voller Elsa-Karten. Öffne es und schau, was drin ist.">
   <meta property="og:locale" content="de_DE">
   <meta property="og:image" content="assets/og.png">
@@ -33,7 +32,7 @@
           : stored === "de" || stored === "en" ? stored : "de";
         document.documentElement.lang = lang;
         if (lang === "en") {
-          document.title = "Lucky Elsa — a pack of Elsa cards";
+          document.title = "Elsen — The Elsa Collection";
         }
       } catch {
         // The page stays in German when storage is unavailable.
@@ -41,15 +40,17 @@
     })();
   </script>
 
-  <script src="assets/js/card-bank.js" defer></script>
-  <script src="assets/js/app.js" defer></script>
+  <script src="assets/js/card-bank.js?v=20261101" defer></script>
+  <script src="assets/js/app.js?v=20261101" defer></script>
 </head>
 <body>
+  <div class="ambient-beam" aria-hidden="true"></div>
+  <canvas id="ambient-motes" aria-hidden="true"></canvas>
   <a class="skip-link" href="#stage" data-i18n="skip">Direkt zum Pack</a>
 
   <header class="masthead">
     <div class="shell masthead__inner">
-      <a class="wordmark" href="./" aria-label="Lucky Elsa, zurück zum Pack" data-i18n-aria-label="wordmarkLabel">
+      <a class="wordmark" href="./" aria-label="Elsen, zurück zum Pack" data-i18n-aria-label="wordmarkLabel">
         <svg class="wordmark__paw" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
           <ellipse cx="12" cy="6.7" rx="2.2" ry="3.1"/>
@@ -57,7 +58,7 @@
           <ellipse cx="21" cy="14.4" rx="1.8" ry="2.4"/>
           <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
         </svg>
-        <span>Lucky Elsa</span>
+        <span>Elsen</span>
       </a>
 
       <p class="masthead__count" id="masthead-count" data-i18n="progressLoading">Karten werden gesucht</p>
@@ -86,6 +87,7 @@
     <section class="stage" id="stage" aria-labelledby="stage-title">
       <div class="shell stage__grid">
         <div class="stage__copy">
+          <p class="stage__eyebrow" data-i18n="eyebrow">Die Elsa-Sammlung · Erste Auflage</p>
           <h1 class="display" id="stage-title" data-i18n-html="headline">Was steckt<br>im Pack?</h1>
           <p class="stage__lede" data-i18n="lede">Fünf Karten auf einmal, mindestens eine davon holografisch. Es gehen alle einmal durch, bevor das Pack von vorn beginnt.</p>
 
@@ -109,6 +111,7 @@
           <button class="pack__seal" id="pack-seal" type="button" aria-label="Ein Pack Elsa-Karten öffnen" data-i18n-aria-label="openPackLabel">
             <span class="pack__seal-art" aria-hidden="true">
               <span class="pack__seal-top"></span>
+              <img class="pack__preview" id="pack-preview" src="photos/thumbs/elsa-01.jpg" alt="" width="720" height="720">
               <span class="pack__seal-crest">
                 <svg viewBox="0 0 24 24" focusable="false">
                   <ellipse cx="6.1" cy="9.2" rx="2.1" ry="2.9"/>
@@ -118,19 +121,15 @@
                   <path d="M12 11.3c3.5 0 6.3 2.7 6.3 5.9 0 2.1-1.7 3.8-3.8 3.8-1.2 0-1.9-.7-2.5-.7s-1.3.7-2.5.7c-2.1 0-3.8-1.7-3.8-3.8 0-3.2 2.8-5.9 6.3-5.9Z"/>
                 </svg>
               </span>
-              <span class="pack__seal-word">Elsa</span>
+              <span class="pack__seal-word">Elsen</span>
               <span class="pack__seal-series" data-i18n="seriesLabel">Serie I</span>
             </span>
             <span class="pack__seal-tear" aria-hidden="true"></span>
           </button>
 
-          <canvas class="confetti" id="confetti-stage" aria-hidden="true"></canvas>
         </div>
       </div>
 
-      <div class="shell">
-        <ol class="pack__drop" id="pack-drop" aria-label="Die Karten aus diesem Pack" data-i18n-aria-label="dropLabel"></ol>
-      </div>
     </section>
 
     <section class="album" id="album" aria-labelledby="album-title">
@@ -157,11 +156,41 @@
 
   <footer class="colophon">
     <div class="shell colophon__inner">
-      <p class="colophon__brand">Lucky Elsa</p>
+      <p class="colophon__brand">Elsen</p>
       <p class="colophon__line" data-i18n="footerLine">Zu Hause für Elsa gebaut. Keine Anmeldung, nichts wird getrackt.</p>
       <a class="text-link" href="#stage" data-i18n="backToTop">Nach oben</a>
     </div>
   </footer>
+
+  <dialog class="pack-dialog" id="pack-dialog" aria-labelledby="pack-dialog-title">
+    <div class="pack-dialog__inner">
+      <header class="pack-dialog__head">
+        <div>
+          <p class="pack-dialog__eyebrow" data-i18n="packDialogEyebrow">Erste Auflage · fünf Karten</p>
+          <h2 id="pack-dialog-title" data-i18n="packDialogTitle">Dein Pack</h2>
+        </div>
+        <button class="lightbox__close" id="close-pack-dialog" type="button" aria-label="Pack schließen" data-i18n-aria-label="closePack">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m5 5 14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+      <div class="pack-dialog__opening" id="pack-opening" aria-hidden="true">
+        <div class="pack-dialog__sachet">
+          <span class="pack-dialog__crimp"></span>
+          <span class="pack-dialog__flap" aria-hidden="true"></span>
+          <img class="pack-dialog__photo" id="pack-dialog-preview" src="photos/thumbs/elsa-01.jpg" alt="" width="720" height="720">
+          <span class="pack-dialog__seal-name">Elsen</span>
+          <span class="pack-dialog__seal-copy" data-i18n="packDialogEyebrow">Erste Auflage · fünf Karten</span>
+          <span class="pack-dialog__tear"></span>
+        </div>
+        <span class="pack-dialog__flash" aria-hidden="true"></span>
+      </div>
+      <ol class="pack__drop" id="pack-drop" aria-label="Die Karten aus diesem Pack" data-i18n-aria-label="dropLabel"></ol>
+      <p class="pack-dialog__hint" data-i18n="packDialogHint">Wähle eine Karte. Wische für die nächste.</p>
+      <canvas class="confetti" id="confetti-stage" aria-hidden="true"></canvas>
+    </div>
+  </dialog>
 
   <dialog class="lightbox" id="card-dialog" aria-labelledby="card-full-name">
     <div class="lightbox__inner">
@@ -182,7 +211,6 @@
       <p class="print__status" id="share-status" role="status" aria-live="polite"></p>
       <p class="print__hint" data-i18n-html="dialogHint">Mit <kbd>←</kbd> und <kbd>→</kbd> durch die Karten gehen.</p>
 
-      <canvas class="confetti" id="confetti-card" aria-hidden="true"></canvas>
     </div>
   </dialog>
 

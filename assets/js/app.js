@@ -3,31 +3,36 @@
 
   const COPY = {
     de: {
-      title: "Lucky Elsa — ein Pack voller Elsa-Karten",
-      description: "Pack öffnen und fünf zufällige Karten von Elsa bekommen. Jede Karte hat ihren eigenen Titel, ihre Laune und ihre Werte.",
-      ogTitle: "Lucky Elsa",
-      ogDescription: "Ein Pack voller Elsa-Karten. Öffne es und schau, was drin ist.",
+      title: "Elsen — Die Elsa-Sammlung",
+      description: "Fünf Sammelkarten pro Pack: Elsa, ihre Launen und ein Hauch Holo-Folie.",
+      ogTitle: "Elsen",
+      ogDescription: "Fünf Karten. Viele Elsa-Momente. Und manchmal schimmert eine davon.",
       skip: "Direkt zum Pack",
-      wordmarkLabel: "Lucky Elsa, zurück zum Pack",
+      wordmarkLabel: "Elsen, zurück zum Pack",
       menuLabel: "Hauptmenü",
       navBinder: "Sammelheft",
       languageLabel: "Sprache",
       soundLabel: "Ton",
       soundOn: "Ton an",
       soundOff: "Ton aus",
-      headline: "Was steckt<br>im Pack?",
-      lede: "Fünf Karten auf einmal, mindestens eine davon holografisch. Es gehen alle einmal durch, bevor das Pack von vorn beginnt.",
+      eyebrow: "Elsen · Erste Auflage",
+      headline: "Fünf Karten.<br>Ganz Elsa.",
+      lede: "Ihre großen Auftritte, kleinen Launen und seltenen Glanzmomente — ein Pack nach dem anderen.",
       openPack: "Pack öffnen",
       openPackLabel: "Ein Pack Elsa-Karten öffnen",
-      seriesLabel: "Serie I",
+      packDialogEyebrow: "Elsen · Erste Auflage · fünf Karten",
+      packDialogTitle: "Dein Pack",
+      packDialogHint: "Wähle eine Karte. Wische für die nächste.",
+      closePack: "Pack schließen",
+      seriesLabel: "Erste Auflage",
       opening: "Pack wird geöffnet",
       seeBinder: "Sammelheft ansehen",
-      packCaption: "Fünf Karten, mindestens eine mit Folie.",
+      packCaption: "Fünf Karten. Eine glänzt garantiert.",
       packHint: "Drück <kbd>P</kbd>, um ein Pack zu öffnen.",
       progressLoading: "Karten werden gesucht",
-      progressNote: "Jede Karte kommt einmal dran, bevor das Pack von vorn beginnt.",
-      binderTitle: "Sammelheft",
-      binderLede: "Alle Karten, die es gibt. Öffne eine und schau, was darauf steht.",
+      progressNote: "Jede Karte kommt dran, bevor eine wieder auftaucht.",
+      binderTitle: "Die Sammlung",
+      binderLede: "Alle Elsa-Momente an einem Ort. Tippe auf eine Karte für die ganze Geschichte.",
       binderLabel: "Alle Karten von Elsa",
       dropLabel: "Die Karten aus diesem Pack",
       albumCountLoading: "Karten werden geladen",
@@ -35,13 +40,16 @@
       demoNote: "Das hier sind Beispielkarten. Die echten Fotos fehlen noch.",
       mixedNote: "Ein paar Karten sind noch Platzhalter. Die echten Fotos kommen dazu, sobald sie da sind.",
       loadingDots: "Karten werden geladen…",
-      footerLine: "Zu Hause für Elsa gebaut. Keine Anmeldung, nichts wird getrackt.",
+      footerLine: "Für Elsa gemacht. Keine Anmeldung, kein Tracking.",
       backToTop: "Nach oben",
       closeCard: "Diese Karte schließen",
       openAnother: "Noch ein Pack",
+      cardBackAnnounce: "Rückseite der Karte.",
+      cardFrontAnnounce: "Vorderseite der Karte.",
       savePhoto: "Foto speichern",
       share: "Teilen",
-      dialogHint: "Mit <kbd>←</kbd> und <kbd>→</kbd> durch die Karten gehen.",
+      dialogHint: "Karte antippen zum Umdrehen · <kbd>←</kbd> <kbd>→</kbd> zur nächsten",
+      flipCardHint: "Zum Umdrehen antippen.",
       noscript: "Das Pack braucht JavaScript. Die Karten liegen trotzdem im Ordner <code>photos</code>.",
       photoAlt: "Elsa, Karte {number}",
       cardNumber: "Nr. {number}",
@@ -53,6 +61,12 @@
       demoCountOne: "1 Beispielkarte",
       openCardLabel: "Karte {number} öffnen: {name}",
       openCardSeenLabel: "Karte {number} öffnen: {name}, schon gehabt",
+      traitLabel: "Elsa-Moment",
+      photoNoteLabel: "Im Bild",
+      playStatsLabel: "Fantasiewerte · nur zum Spaß",
+      untitledCard: "Elsa-Moment",
+      untitledLine: "Ein Moment mit Elsa.",
+      untitledMood: "ganz sie selbst",
       emptyShort: "Noch keine Karten",
       emptyBinderCount: "Noch nichts da",
       emptyLine: "Hier sind noch keine Karten. Leg Elsa-Fotos in den Ordner photos und führe dann aus:",
@@ -74,31 +88,36 @@
       cardPrint: "Serie I · {number} von {total}"
     },
     en: {
-      title: "Lucky Elsa — a pack of Elsa cards",
-      description: "Open a pack and get five random cards of Elsa. Every card keeps its own title, mood and ratings.",
-      ogTitle: "Lucky Elsa",
-      ogDescription: "A pack of Elsa cards. Open it and see what is inside.",
+      title: "Elsen — The Elsa Collection",
+      description: "Five collectible cards in every pack: Elsa, her moods and a little holographic foil.",
+      ogTitle: "Elsen",
+      ogDescription: "Five cards. So many Elsa moments. And sometimes one catches the light.",
       skip: "Skip to the pack",
-      wordmarkLabel: "Lucky Elsa, back to the pack",
+      wordmarkLabel: "Elsen, back to the pack",
       menuLabel: "Main",
       navBinder: "Binder",
       languageLabel: "Language",
       soundLabel: "Sound",
       soundOn: "Sound on",
       soundOff: "Sound off",
-      headline: "What's in<br>the pack?",
-      lede: "Five cards at a time, at least one of them holographic. Every card comes up once before the pack starts over.",
+      eyebrow: "Elsen · First edition",
+      headline: "Five cards.<br>All Elsa.",
+      lede: "Big entrances, small moods and the occasional rare shine — one pack at a time.",
       openPack: "Open a pack",
       openPackLabel: "Open a pack of Elsa cards",
-      seriesLabel: "Series I",
+      packDialogEyebrow: "Elsen · First edition · five cards",
+      packDialogTitle: "Your pack",
+      packDialogHint: "Pick a card. Swipe to see the next one.",
+      closePack: "Close pack",
+      seriesLabel: "First edition",
       opening: "Opening",
       seeBinder: "See the binder",
-      packCaption: "Five cards, at least one of them foiled.",
+      packCaption: "Five cards. One is guaranteed to shine.",
       packHint: "Press <kbd>P</kbd> to open a pack.",
       progressLoading: "Finding the cards",
-      progressNote: "Every card comes up once before the pack starts over.",
-      binderTitle: "Binder",
-      binderLede: "Every card there is. Open one and see what it says.",
+      progressNote: "Every card gets a turn before any come back around.",
+      binderTitle: "The collection",
+      binderLede: "Every Elsa moment in one place. Tap a card to get the full story.",
       binderLabel: "All cards of Elsa",
       dropLabel: "The cards in this pack",
       albumCountLoading: "Loading cards",
@@ -106,13 +125,16 @@
       demoNote: "These are sample cards. The real photos are not in yet.",
       mixedNote: "A few cards are still placeholders. Real photos take their place as they arrive.",
       loadingDots: "Loading cards…",
-      footerLine: "Made at home for Elsa. No accounts, nothing tracked.",
+      footerLine: "Made for Elsa. No account, no tracking.",
       backToTop: "Back to the top",
       closeCard: "Close this card",
       openAnother: "Another pack",
+      cardBackAnnounce: "Card back.",
+      cardFrontAnnounce: "Card front.",
       savePhoto: "Save this photo",
       share: "Share",
-      dialogHint: "Use <kbd>←</kbd> and <kbd>→</kbd> to go through the cards.",
+      dialogHint: "Tap the card to flip · <kbd>←</kbd> <kbd>→</kbd> for the next",
+      flipCardHint: "Tap to flip.",
       noscript: "The pack needs JavaScript. The cards are still in the <code>photos</code> folder.",
       photoAlt: "Elsa, card {number}",
       cardNumber: "No. {number}",
@@ -124,6 +146,12 @@
       demoCountOne: "1 sample card",
       openCardLabel: "Open card {number}: {name}",
       openCardSeenLabel: "Open card {number}: {name}, already had it",
+      traitLabel: "Elsa moment",
+      photoNoteLabel: "In the photo",
+      playStatsLabel: "Imaginary stats · just for fun",
+      untitledCard: "Elsa moment",
+      untitledLine: "A moment with Elsa.",
+      untitledMood: "being herself",
       emptyShort: "No cards yet",
       emptyBinderCount: "Nothing here yet",
       emptyLine: "There are no cards here yet. Put Elsa's photos in the photos folder, then run:",
@@ -149,12 +177,10 @@
   const FALLBACK_BANK = {
     de: {
       names: ["Elsa"], lines: ["Ein guter Hund."], moods: ["zufrieden"],
-      stats: [{ de: "Energie", en: "Energy" }],
       rarities: { common: "Häufig", rare: "Selten", holo: "Holo" }
     },
     en: {
       names: ["Elsa"], lines: ["A good dog."], moods: ["content"],
-      stats: [{ de: "Energie", en: "Energy" }],
       rarities: { common: "Common", rare: "Rare", holo: "Holo" }
     }
   };
@@ -204,6 +230,7 @@
     applyStaticCopy();
     updateLangUi();
     loadPreferences();
+    initVelvetRoom();
     bindEvents();
     updateSoundUi();
 
@@ -218,6 +245,10 @@
       renderEmpty();
       return;
     }
+
+    const cover = state.photos.find((photo) => photo.id === "elsa-01") || state.photos[0];
+    if (els.packPreview && cover) els.packPreview.src = cover.thumb;
+    if (els.packOpeningPreview && cover) els.packOpeningPreview.src = cover.thumb;
 
     pruneSeen();
     state.hasSamples = state.photos.some((photo) => photo.demo);
@@ -235,6 +266,11 @@
   function cacheElements() {
     els.openPack = document.getElementById("open-pack");
     els.packSeal = document.getElementById("pack-seal");
+    els.packPreview = document.getElementById("pack-preview");
+    els.packDialog = document.getElementById("pack-dialog");
+    els.closePack = document.getElementById("close-pack-dialog");
+    els.packOpening = document.getElementById("pack-opening");
+    els.packOpeningPreview = document.getElementById("pack-dialog-preview");
     els.packDrop = document.getElementById("pack-drop");
     els.progressLabel = document.getElementById("progress-label");
     els.progressTrack = document.getElementById("progress-track");
@@ -253,14 +289,14 @@
     els.openAnother = document.getElementById("open-another");
     els.shareStatus = document.getElementById("share-status");
     els.live = document.getElementById("live");
-    els.lightboxInner = document.querySelector(".lightbox__inner");
+    els.ambientMotes = document.getElementById("ambient-motes");
     els.confettiStage = document.getElementById("confetti-stage");
-    els.confettiCard = document.getElementById("confetti-card");
   }
 
   function bindEvents() {
     els.openPack.addEventListener("click", openPack);
     els.packSeal.addEventListener("click", openPack);
+    els.closePack.addEventListener("click", () => els.packDialog.close());
     els.openAnother.addEventListener("click", () => {
       els.dialog.close();
       window.setTimeout(openPack, 160);
@@ -275,6 +311,9 @@
     });
 
     els.dialog.addEventListener("close", onDialogClose);
+    els.packDialog.addEventListener("close", () => {
+      window.setTimeout(() => els.openPack.focus({ preventScroll: true }), 0);
+    });
     els.dialog.addEventListener("click", (event) => {
       if (event.target === els.dialog) els.dialog.close();
     });
@@ -282,7 +321,8 @@
     els.packDrop.addEventListener("click", (event) => {
       const card = event.target.closest("[data-photo-id]");
       if (!card || state.opening) return;
-      const photo = state.photos.find((item) => item.id === card.dataset.photoId);
+      const photo = state.pack.find((item) => item.id === card.dataset.photoId) ||
+        state.photos.find((item) => item.id === card.dataset.photoId);
       if (photo) openCard(photo);
     });
 
@@ -291,6 +331,10 @@
       if (!card || state.opening) return;
       const photo = state.photos.find((item) => item.id === card.dataset.photoId);
       if (photo) openCard(photo);
+    });
+
+    els.fullSlot.addEventListener("click", (event) => {
+      if (event.target.closest(".card--full")) toggleCurrentFlip();
     });
 
     document.addEventListener("keydown", onKeydown);
@@ -365,7 +409,17 @@
       }
       used.add(id);
 
-      const text = (value) => (typeof value === "string" ? value.trim() : "");
+      const text = (value) => {
+        if (typeof value === "string") return value.trim();
+        if (value && typeof value === "object" && !Array.isArray(value)) {
+          return Object.fromEntries(
+            ["de", "en"]
+              .filter((language) => typeof value[language] === "string")
+              .map((language) => [language, value[language].trim()])
+          );
+        }
+        return "";
+      };
 
       normalized.push({
         id,
@@ -497,7 +551,7 @@
 
   function updateDocumentTitle() {
     document.title = state.current
-      ? `${cardFor(state.current).name} — Lucky Elsa`
+      ? `${cardFor(state.current).name} — Elsen`
       : t("title");
   }
 
@@ -592,20 +646,18 @@
     const index = state.photos.findIndex((item) => item.id === photo.id);
     const number = index + 1;
     const deck = bank();
-    const stats = (deck.stats || []).slice(0, 3).map((stat, position) => ({
-      key: localized(stat.key) || localized(stat) || "—",
-      value: 1 + (hashOf(`${photo.id}#stat${position}`) % 10)
-    }));
+    const stats = (deck.photoTraits && deck.photoTraits[photo.filename] || []).slice(0, 3);
 
     return {
       photo,
       index,
       number,
-      name: photo.name || pickAt(deck.names, index, 7) || "Elsa",
-      line: photo.description || photo.caption || pickAt(deck.lines, index, 7),
-      mood: photo.mood || pickAt(deck.moods, index, 5),
+      name: localized(photo.name) || (photo.demo ? pickAt(deck.names, index, 7) : `${t("untitledCard")} ${pad2(number)}`),
+      line: localized(photo.description) || localized(photo.caption) || (photo.demo ? pickAt(deck.lines, index, 7) : t("untitledLine")),
+      mood: localized(photo.mood) || (photo.demo ? pickAt(deck.moods, index, 5) : t("untitledMood")),
       rarity: rarityOf(photo),
-      stats
+      stats: stats.map((stat) => ({ key: stat.key, value: stat.value })),
+      photoNote: localized(photo.alt)
     };
   }
 
@@ -616,12 +668,6 @@
     return localized(entry.label) || localized(entry) || rarity;
   }
 
-  function rarityFlavour(rarity) {
-    const deck = bank();
-    const entry = (deck.rarities || {})[rarity];
-    return entry ? localized(entry.flavour) : "";
-  }
-
   /* The card anatomy, top to bottom: a name plate with number, name, mood and
      the rarity chip, the art window with its holographic layers, a category
      strip with the rarity stars, the ability panel (keyword, funny line,
@@ -630,6 +676,52 @@
      ability panel to the keyword and the line. */
   const CARD_STARS = { common: 3, rare: 4, holo: 5 };
   const CARD_STAR_PATH = "M12 2.4l2.7 5.9 6.4.9-4.7 4.5 1.2 6.4L12 17.2l-5.6 2.9 1.2-6.4L2.9 9.2l6.4-.9z";
+  let glitterPair = null;
+
+  function makeGlitterSheet(dots, stars) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 220;
+    canvas.height = 220;
+    const context = canvas.getContext("2d");
+    const palette = ["255, 220, 232", "255, 232, 195", "228, 211, 255", "255, 255, 255"];
+
+    for (let index = 0; index < dots; index += 1) {
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      const alpha = 0.25 + Math.random() * 0.72;
+      const size = Math.random() < 0.08 ? 2 : 1;
+      context.fillStyle = `rgba(${color}, ${alpha.toFixed(2)})`;
+      context.fillRect(Math.random() * 220, Math.random() * 220, size, size);
+    }
+
+    for (let index = 0; index < stars; index += 1) {
+      const x = Math.random() * 220;
+      const y = Math.random() * 220;
+      const radius = 2 + Math.random() * 2.5;
+      const color = palette[Math.floor(Math.random() * palette.length)];
+      context.fillStyle = `rgba(${color}, .94)`;
+      context.beginPath();
+      context.moveTo(x, y - radius);
+      context.lineTo(x + radius * 0.2, y);
+      context.lineTo(x, y + radius);
+      context.lineTo(x - radius * 0.2, y);
+      context.closePath();
+      context.moveTo(x - radius, y);
+      context.lineTo(x, y + radius * 0.2);
+      context.lineTo(x + radius, y);
+      context.lineTo(x, y - radius * 0.2);
+      context.closePath();
+      context.fill();
+    }
+
+    return `url("${canvas.toDataURL("image/png")}")`;
+  }
+
+  function foilGlitter() {
+    if (!glitterPair) {
+      glitterPair = [makeGlitterSheet(520, 14), makeGlitterSheet(380, 9)];
+    }
+    return glitterPair;
+  }
 
   function cardSpan(className, text) {
     const node = document.createElement("span");
@@ -653,28 +745,52 @@
 
   function cardElement(photo, size) {
     const card = cardFor(photo);
-    const node = document.createElement("button");
-    node.type = "button";
+    const node = document.createElement(size === "full" ? "div" : "button");
+    if (size !== "full") node.type = "button";
     node.className = `card card--${size}`;
     node.dataset.rarity = card.rarity;
     node.dataset.photoId = photo.id;
-    node.setAttribute("aria-label", t(state.seen.has(photo.id) ? "openCardSeenLabel" : "openCardLabel", {
+    const accessibleName = t(state.seen.has(photo.id) ? "openCardSeenLabel" : "openCardLabel", {
       number: pad2(card.number),
       name: card.name
-    }));
+    });
+    if (size === "full") {
+      node.setAttribute("role", "button");
+      node.setAttribute("tabindex", "0");
+      node.setAttribute("aria-pressed", "false");
+      const playValues = card.stats.map((stat) => `${stat.key}: ${stat.value}/10`).join(". ");
+      node.setAttribute("aria-label", [
+        card.name,
+        `${t("moodLabel")}: ${card.mood}`,
+        card.line,
+        card.photoNote,
+        rarityLabel(card.rarity),
+        playValues ? `${t("playStatsLabel")}: ${playValues}` : "",
+        t("flipCardHint")
+      ].filter(Boolean).join(". "));
+    } else {
+      node.setAttribute("aria-label", accessibleName);
+    }
+
+    const spin = cardSpan("card__spin");
+    const front = cardSpan("card__face card__face--front");
+    const back = cardSpan("card__face card__face--back");
+    front.setAttribute("aria-hidden", "false");
+    back.setAttribute("aria-hidden", "true");
 
     const foil = cardSpan("card__foil");
     foil.setAttribute("aria-hidden", "true");
+    node.style.setProperty("--glitter-a", foilGlitter()[0]);
+    node.style.setProperty("--glitter-b", foilGlitter()[1]);
 
     const frame = cardSpan("card__frame");
     frame.setAttribute("aria-hidden", "true");
 
     /* 1 · the name plate: number, name, mood, rarity chip */
     const plate = cardSpan("card__plate");
-    plate.append(
-      cardSpan("card__number", t("cardNumber", { number: pad2(card.number) })),
-      cardSpan("card__name", card.name)
-    );
+    const nameNode = cardSpan("card__name", card.name);
+    if (size === "full") nameNode.id = "card-full-name";
+    plate.append(cardSpan("card__number", t("cardNumber", { number: pad2(card.number) })), nameNode);
 
     if (size !== "tile") {
       const mood = cardSpan("card__mood", card.mood);
@@ -684,8 +800,6 @@
     }
 
     const rarity = cardSpan("card__rarity", rarityLabel(card.rarity));
-    const flavour = rarityFlavour(card.rarity);
-    if (flavour) rarity.title = flavour;
     plate.append(rarity);
 
     /* 2 · the art window: photo, holographic rays, printed frame */
@@ -705,21 +819,31 @@
 
     /* 3 · the strip under the art: what it is and how rare it is */
     const strip = cardSpan("card__strip");
-    if (size !== "tile") strip.append(cardSpan("card__kind", `Elsa · ${t("seriesLabel")}`));
+    if (size !== "tile") strip.append(cardSpan("card__kind", `Elsen · ${t("seriesLabel")}`));
     strip.append(cardStars(card.rarity));
 
-    node.append(foil, plate, photoWrap, strip);
+    front.append(foil, cardSpan("card__glit"), cardSpan("card__glit card__glit--whole"), plate, photoWrap, strip);
+    const backMark = cardSpan("card__back-mark");
+    backMark.append(cardSpan("card__back-brand", "Elsen"), cardSpan("card__back-series", t("seriesLabel")));
+    const backFoil = cardSpan("card__foil");
+    backFoil.setAttribute("aria-hidden", "true");
+    back.append(backFoil, cardSpan("card__back-pattern"), cardSpan("card__glit"), backMark);
+    spin.append(front, back);
+    node.append(spin);
     if (size === "tile") return node;
 
-    /* 4 · the ability panel: keyword, the funny line, the flavour quote */
+    /* 4 · a playful photo moment plus the actual bilingual caption */
     const ability = cardSpan("card__line");
-    ability.append(cardSpan("card__keyword", card.name), cardSpan("card__copy", card.line));
-    if (size === "full" && flavour) {
-      ability.append(cardSpan("card__print", `„${flavour}“`));
+    ability.append(cardSpan("card__keyword", t("traitLabel")), cardSpan("card__copy", card.line));
+    if (size === "full" && card.photoNote) {
+      ability.append(cardSpan("card__print", `${t("photoNoteLabel")}: ${card.photoNote}`));
     }
-    node.append(ability);
+    front.append(ability);
 
-    /* 5 · three stat chips */
+    /* Photo-specific editorial jokes; explicitly not measured dog stats. */
+    if (card.stats.length) front.append(cardSpan("card__stats-label", t("playStatsLabel")));
+
+    /* 5 · three playful trait chips */
     const stats = cardSpan("card__stats");
     card.stats.forEach((stat) => {
       const row = cardSpan("card__stat");
@@ -735,13 +859,13 @@
       );
       stats.append(row);
     });
-    node.append(stats);
+    front.append(stats);
 
     /* 6 · serial and credit line */
     const foot = cardSpan("card__foot");
     foot.append(cardSpan("card__serial", `${pad2(card.number)}/${pad2(state.photos.length)}`));
-    if (size === "full") foot.append(cardSpan("card__credit", `Lucky Elsa · ${t("seriesLabel")}`));
-    node.append(foot);
+    if (size === "full") foot.append(cardSpan("card__credit", `Elsen · ${t("seriesLabel")}`));
+    front.append(foot);
 
     return node;
   }
@@ -782,11 +906,22 @@
     }
 
     state.opening = true;
+    els.packSeal.classList.add("is-opening");
+    window.setTimeout(() => els.packSeal.classList.remove("is-opening"), 700);
     setBusy(true);
     announce(t("openingAnnounce"));
     playRip();
 
+    if (!els.packDialog.open) els.packDialog.showModal();
+    els.packDialog.scrollTop = 0;
+
     els.packDrop.replaceChildren();
+    els.packOpening.hidden = state.reduceMotion;
+    els.packDialog.classList.toggle("is-revealing", !state.reduceMotion);
+    if (!state.reduceMotion) await wait(900);
+    els.packOpening.hidden = true;
+    els.packDialog.classList.remove("is-revealing");
+
     chosen.forEach((photo, index) => {
       if (state.reduceMotion) {
         appendCard(photo, index);
@@ -797,17 +932,17 @@
         appendCard(photo, index);
         playTick();
         if (rarityOf(photo) !== "common") playWin();
-      }, 180 + index * 220);
+      }, index * 200);
     });
 
-    await wait(state.reduceMotion ? 0 : 180 + chosen.length * 220 + 200);
+    await wait(state.reduceMotion ? 0 : chosen.length * 200 + 520);
 
     chosen.forEach((photo) => markSeen(photo.id));
     state.pack = chosen;
     state.opening = false;
     setBusy(false);
 
-    celebrate(els.confettiStage, els.packSeal,
+    celebrate(els.confettiStage, els.packDrop,
       chosen.some((photo) => rarityOf(photo) === "holo") ? "big" : "normal");
 
     announce(t("packAnnounce", {
@@ -837,6 +972,7 @@
     els.openPack.disabled = busy;
     els.packSeal.disabled = busy;
     els.openAnother.disabled = busy;
+    els.closePack.disabled = busy;
     els.openPack.textContent = t(busy ? "opening" : "openPack");
   }
 
@@ -863,32 +999,37 @@
 
     updateDocumentTitle();
 
-    const wasOpen = els.dialog.open;
-    if (!wasOpen) {
-      els.dialog.showModal();
-    }
+    if (!els.dialog.open) els.dialog.showModal();
     els.dialog.scrollTop = 0;
     els.dialog.focus({ preventScroll: true });
-
-    if (!wasOpen) {
-      playReveal(card.rarity);
-      const full = els.fullSlot.querySelector(".card");
-      if (full) {
-        celebrate(els.confettiCard, full, card.rarity === "holo" ? "big" : "normal");
-      }
-    } else {
-      playTick();
-    }
 
     announce(`${t("cardNumber", { number: pad2(card.number) })}. ${card.name}. ${rarityLabel(card.rarity)}.`);
   }
 
+  function toggleCurrentFlip() {
+    const card = els.fullSlot.querySelector(".card--full");
+    if (!card) return;
+    const flipped = card.dataset.flipped !== "true";
+    card.dataset.flipped = flipped ? "true" : "false";
+    card.setAttribute("aria-pressed", flipped ? "true" : "false");
+    card.querySelector(".card__face--front")?.setAttribute("aria-hidden", flipped ? "true" : "false");
+    card.querySelector(".card__face--back")?.setAttribute("aria-hidden", flipped ? "false" : "true");
+    card.setAttribute("aria-label", `${card.querySelector(".card__name")?.textContent || "Elsen"}. ${t(flipped ? "cardBackAnnounce" : "cardFrontAnnounce")}`);
+    announce(flipped ? t("cardBackAnnounce") : t("cardFrontAnnounce"));
+  }
+
   function onDialogClose() {
+    const previous = state.current;
     state.current = null;
     els.shareStatus.textContent = "";
     updateDocumentTitle();
     clearPhotoUrl();
-    window.setTimeout(() => els.openPack.focus({ preventScroll: true }), 0);
+    window.setTimeout(() => {
+      const packCard = previous && els.packDialog.open
+        ? [...els.packDrop.querySelectorAll("[data-photo-id]")].find((item) => item.dataset.photoId === previous.id)
+        : null;
+      (packCard || (els.packDialog.open ? els.closePack : els.openPack)).focus({ preventScroll: true });
+    }, 0);
   }
 
   function markSeen(id) {
@@ -1066,6 +1207,12 @@
       } else if (event.key === "ArrowLeft") {
         event.preventDefault();
         navigateCard(-1);
+      } else if (event.key === "f" || event.key === "F") {
+        event.preventDefault();
+        toggleCurrentFlip();
+      } else if ((event.key === "Enter" || event.key === " ") && event.target.closest?.(".card--full")) {
+        event.preventDefault();
+        toggleCurrentFlip();
       }
       return;
     }
@@ -1320,7 +1467,7 @@
     const ox = originBox.left + originBox.width / 2 - hostBox.left;
     const oy = originBox.top + originBox.height * 0.42 - hostBox.top;
 
-    const colors = ["#72efdd", "#2fd3bd", "#171310", "#f6efdf", "#efe3c9", "#c9b6ff"];
+    const colors = ["#f1d7b4", "#e6c5d3", "#d5c8ef", "#f0d9b6", "#f7f0e7", "#9a819e"];
     const count = intensity === "big" ? 150 : 90;
     const pieces = [];
 
@@ -1382,87 +1529,128 @@
     window.requestAnimationFrame(frame);
   }
 
-  /* The foil follows the pointer: a slight tilt and the highlight moving with
-     it. Never on touch, never when motion is reduced. */
+  /* Damped 3D spring: one movement drives the card tilt, name foil, art foil,
+     twin glitter sheets, glare band and hotspot. Touch drag works like mouse. */
   function bindCardShine(root) {
     if (!root) return;
-    let active = null;
-
-    const reset = (card) => {
-      if (!card) return;
-      card.style.removeProperty("--tilt-x");
-      card.style.removeProperty("--tilt-y");
-      card.style.removeProperty("--mx");
-      card.style.removeProperty("--my");
+    const motion = {
+      card: null,
+      pointer: false,
+      down: false,
+      tx: 0,
+      ty: 0,
+      rx: 0,
+      ry: 0,
+      vx: 0,
+      vy: 0,
+      lastMove: 0,
+      lastFrame: 0,
+      elapsed: 0,
+      raf: 0
     };
 
-    root.addEventListener("pointermove", (event) => {
-      if (state.reduceMotion || event.pointerType === "touch") return;
-
+    const setTarget = (event) => {
       const card = event.target.closest ? event.target.closest(".card") : null;
-      if (!card) {
-        reset(active);
-        active = null;
+      if (!card || !root.contains(card)) {
+        motion.pointer = false;
+        motion.lastMove = performance.now();
         return;
       }
 
-      if (active && active !== card) reset(active);
-      active = card;
+      if (event.pointerType === "touch" && !motion.down) return;
+      motion.card = card;
+      motion.pointer = true;
+      motion.lastMove = performance.now();
 
-      const box = card.getBoundingClientRect();
-      const px = (event.clientX - box.left) / box.width;
-      const py = (event.clientY - box.top) / box.height;
+      const bounds = card.getBoundingClientRect();
+      const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+      const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+      motion.ty = (x - 0.5) * 34;
+      motion.tx = -(y - 0.5) * 30;
+      if (!motion.raf) motion.raf = window.requestAnimationFrame(frame);
+    };
 
-      card.style.setProperty("--mx", `${(px * 100).toFixed(1)}%`);
-      card.style.setProperty("--my", `${(py * 100).toFixed(1)}%`);
-      card.style.setProperty("--tilt-y", `${((px - 0.5) * 9).toFixed(2)}deg`);
-      card.style.setProperty("--tilt-x", `${((0.5 - py) * 7).toFixed(2)}deg`);
-    });
+    function frame(now) {
+      const dt = motion.lastFrame ? Math.min(0.05, (now - motion.lastFrame) / 1000) : 0.016;
+      motion.lastFrame = now;
+      motion.elapsed += dt;
 
-    root.addEventListener("pointerleave", () => {
-      reset(active);
-      active = null;
-    });
-  }
-
-  function playReveal(rarity) {
-    const context = ensureAudioContext();
-    if (!context) return;
-
-    const notes = rarity === "holo"
-      ? [523.25, 659.25, 783.99, 1046.5]
-      : [523.25, 659.25, 783.99];
-    const now = context.currentTime;
-
-    notes.forEach((frequency, index) => {
-      const oscillator = context.createOscillator();
-      const gain = context.createGain();
-      const start = now + index * 0.085;
-
-      oscillator.type = "triangle";
-      oscillator.frequency.value = frequency;
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.linearRampToValueAtTime(0.085, start + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.28);
-
-      oscillator.connect(gain).connect(context.destination);
-      oscillator.start(start);
-      oscillator.stop(start + 0.3);
-    });
-
-    if (rarity === "holo") {
-      const shimmer = noise(0.4);
-      if (shimmer) {
-        const filter = context.createBiquadFilter();
-        filter.type = "bandpass";
-        filter.frequency.setValueAtTime(3200, shimmer.now);
-        filter.frequency.exponentialRampToValueAtTime(9000, shimmer.now + 0.36);
-        filter.Q.value = 1.4;
-
-        shimmer.source.disconnect();
-        shimmer.source.connect(filter).connect(shimmer.gain);
+      const card = motion.card;
+      if (!card || !card.isConnected) {
+        motion.raf = 0;
+        motion.card = null;
+        return;
       }
+
+      const idle = !motion.pointer && now - motion.lastMove > 2600;
+      if (idle && !state.reduceMotion) {
+        motion.tx = Math.sin(motion.elapsed * 0.55) * 7 + Math.sin(motion.elapsed * 1.3) * 1.5;
+        motion.ty = Math.sin(motion.elapsed * 0.42 + 0.9) * 13;
+      } else if (!motion.pointer) {
+        motion.tx = 0;
+        motion.ty = 0;
+      }
+
+      const spring = state.reduceMotion ? 260 : 150;
+      const damping = state.reduceMotion ? 32 : 15;
+      motion.vx += ((motion.tx - motion.rx) * spring - motion.vx * damping) * dt;
+      motion.vy += ((motion.ty - motion.ry) * spring - motion.vy * damping) * dt;
+      motion.rx += motion.vx * dt;
+      motion.ry += motion.vy * dt;
+
+      const lift = motion.pointer ? Math.min(20, Math.hypot(motion.rx, motion.ry) * 0.55) : 0;
+      const px = Math.max(0, Math.min(100, 50 + motion.ry * 2.7));
+      const py = Math.max(0, Math.min(100, 50 - motion.rx * 3.1));
+      const hyp = Math.min(1, Math.hypot(px - 50, py - 50) / 50);
+      const band = px * 1.25 - 12;
+
+      card.style.transform = `perspective(1500px) translateZ(${lift.toFixed(1)}px) rotateX(${motion.rx.toFixed(2)}deg) rotateY(${motion.ry.toFixed(2)}deg)`;
+      card.style.setProperty("--tilt-x", `${motion.rx.toFixed(2)}deg`);
+      card.style.setProperty("--tilt-y", `${motion.ry.toFixed(2)}deg`);
+      card.style.setProperty("--px", px.toFixed(2));
+      card.style.setProperty("--py", py.toFixed(2));
+      card.style.setProperty("--hyp", hyp.toFixed(3));
+      card.style.setProperty("--bp", `${band.toFixed(1)}%`);
+      card.style.setProperty("--shadow-x", `${(-motion.ry * 1.4).toFixed(1)}px`);
+      card.style.setProperty("--shadow-y", `${(motion.rx * 0.8).toFixed(1)}px`);
+
+      const front = card.querySelector(".card__face--front");
+      const back = card.querySelector(".card__face--back");
+      [[front, px, py, band], [back, 100 - px, py, 112 - band]].forEach(([face, faceX, faceY, faceBand]) => {
+        if (!face) return;
+        face.style.setProperty("--px", faceX.toFixed(2));
+        face.style.setProperty("--py", faceY.toFixed(2));
+        face.style.setProperty("--hyp", hyp.toFixed(3));
+        face.style.setProperty("--bp", `${faceBand.toFixed(1)}%`);
+      });
+
+      motion.raf = window.requestAnimationFrame(frame);
     }
+
+    root.addEventListener("pointermove", setTarget);
+    root.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch") motion.down = true;
+      setTarget(event);
+    });
+    root.addEventListener("pointerup", () => {
+      motion.down = false;
+      motion.pointer = false;
+      motion.lastMove = performance.now();
+    });
+    root.addEventListener("pointerleave", () => {
+      motion.pointer = false;
+      motion.down = false;
+      motion.lastMove = performance.now();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && motion.raf) {
+        window.cancelAnimationFrame(motion.raf);
+        motion.raf = 0;
+        motion.lastFrame = 0;
+      } else if (!document.hidden && motion.card && !motion.raf) {
+        motion.raf = window.requestAnimationFrame(frame);
+      }
+    });
   }
 
   function pad2(value) {
@@ -1487,5 +1675,106 @@
     window.setTimeout(() => {
       els.live.textContent = message;
     }, 30);
+  }
+
+  function initVelvetRoom() {
+    const texture = document.createElement("canvas");
+    texture.width = 256;
+    texture.height = 256;
+    const textureContext = texture.getContext("2d");
+    if (textureContext) {
+      const pixels = textureContext.createImageData(256, 256);
+      const fiber = Array.from({ length: 256 }, () => Math.random());
+      for (let y = 0; y < 256; y += 1) {
+        for (let x = 0; x < 256; x += 1) {
+          const offset = (y * 256 + x) * 4;
+          const grain = Math.random();
+          const nap = fiber[x] * 0.6 + fiber[(x + 1) & 255] * 0.4;
+          const light = 112 + (nap - 0.5) * 64 + (grain - 0.5) * 52 + Math.sin((y + fiber[x] * 40) * 0.09) * 8;
+          pixels.data[offset] = light;
+          pixels.data[offset + 1] = light * 0.96;
+          pixels.data[offset + 2] = light * 1.04;
+          pixels.data[offset + 3] = 255;
+        }
+      }
+      textureContext.putImageData(pixels, 0, 0);
+      document.body.style.setProperty("--nap", `url("${texture.toDataURL("image/png")}")`);
+    }
+
+    const canvas = els.ambientMotes;
+    const context = canvas && canvas.getContext("2d");
+    if (!context) return;
+
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let elapsed = 0;
+    let lastFrame = 0;
+    let raf = 0;
+    let motes = [];
+    const resize = () => {
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(70, Math.round(width * height / 16000));
+      motes = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: 0.5 + Math.random() * 1.4,
+        speed: 4 + Math.random() * 14,
+        phase: Math.random() * Math.PI * 2,
+        drift: 0.3 + Math.random() * 0.7
+      }));
+    };
+
+    const draw = (now) => {
+      if (document.hidden) {
+        raf = 0;
+        return;
+      }
+
+      const dt = lastFrame ? Math.min(0.05, (now - lastFrame) / 1000) : 0.016;
+      lastFrame = now;
+      elapsed += dt;
+      context.clearRect(0, 0, width, height);
+
+      motes.forEach((mote) => {
+        if (!state.reduceMotion) {
+          mote.y -= mote.speed * dt;
+          mote.x += Math.sin(elapsed * mote.drift + mote.phase) * 6 * dt;
+        }
+        if (mote.y < -8) {
+          mote.y = height + 8;
+          mote.x = width * (0.2 + Math.random() * 0.6);
+        }
+        const beam = 1 - Math.min(1, Math.abs(mote.x - width / 2) / (width * 0.34));
+        context.globalAlpha = (0.1 + 0.43 * beam) * (0.58 + 0.42 * Math.sin(elapsed * 2 * mote.drift + mote.phase));
+        context.fillStyle = "#f2eaff";
+        context.beginPath();
+        context.arc(mote.x, mote.y, mote.radius, 0, Math.PI * 2);
+        context.fill();
+      });
+      context.globalAlpha = 1;
+      raf = window.requestAnimationFrame(draw);
+    };
+
+    resize();
+    const start = () => {
+      if (!raf && !document.hidden) {
+        lastFrame = 0;
+        raf = window.requestAnimationFrame(draw);
+      }
+    };
+    const stop = () => {
+      if (raf) window.cancelAnimationFrame(raf);
+      raf = 0;
+      lastFrame = 0;
+    };
+    window.addEventListener("resize", resize, { passive: true });
+    document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+    start();
   }
 })();

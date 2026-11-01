@@ -1,620 +1,511 @@
-/* Lucky Elsa · the collectible card
-   A dark trading card lying on a butter-cream page: ink face, cream type, mint
-   as the one spot colour. Because the face is dark, mint TEXT here is
-   --color-accent (high contrast on ink); --color-accent-strong is only used on
-   the light ability panel, where it belongs. Foil is mint/teal, never rainbow. */
-
-/* Recipes shared by the card face and the packet: iridescence, sheen, rays. */
-.card,
-.pack__seal {
-  --rail-idle: color-mix(in oklab, var(--color-paper) 46%, transparent);
-  --foil-image: repeating-linear-gradient(112deg,
-    color-mix(in oklab, var(--color-accent) 88%, transparent) 0%,
-    color-mix(in oklab, var(--color-accent-deep) 74%, transparent) 5%,
-    transparent 9%,
-    color-mix(in oklab, var(--color-accent-strong) 30%, transparent) 13%,
-    transparent 19%);
-  --sheen-image: linear-gradient(112deg,
-    transparent 34%,
-    color-mix(in oklab, var(--color-paper) 88%, transparent) 45%,
-    color-mix(in oklab, var(--color-accent) 70%, transparent) 51%,
-    transparent 63%);
-  --ray-image: repeating-conic-gradient(from 0deg at 50% 50%,
-    color-mix(in oklab, var(--color-accent) 90%, transparent) 0deg 4deg,
-    transparent 4deg 18deg);
-}
-
-/* ---------- the face ------------------------------------------------------ */
+/* The card is the product: a framed photograph with a foil edge, clear stats,
+   and just enough game language to make each pull feel like a collectible. */
 .card {
-  /* pointer inputs; app.js sets these while the pointer is over a card */
-  --mx: 50%;
-  --my: 38%;
   --tilt-x: 0deg;
   --tilt-y: 0deg;
-  /* rarity knobs, raised below */
-  --wash: 0;
-  --shine: 0;
-  --band: 0;
-  --rail: var(--rail-idle);
-  --star: var(--color-paper);
-
+  --mx: 50%;
+  --my: 40%;
+  --px: 50;
+  --py: 50;
+  --hyp: 0;
+  --bp: 40%;
   position: relative;
   z-index: 0;
   isolation: isolate;
   display: flex;
-  flex-direction: column;
   width: 100%;
   min-width: 0;
+  flex-direction: column;
+  gap: 0;
   overflow: hidden;
-  padding: 0;
-  border: var(--rule-bar) solid var(--color-ink);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-ink);
-  background-image: linear-gradient(180deg, var(--color-ink-2) 0%, var(--color-ink) 46%);
-  color: var(--color-paper);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  line-height: 1.45;
+  padding: 7px;
+  border: 1px solid rgb(255 255 255 / 42%);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, #dfd4c5 0%, #9d91a0 13%, #e6d5c5 25%, #a99aae 39%, #d8cbbb 52%, #b39d91 67%, #dfd1c6 82%, #a48fa4 100%);
+  color: var(--ink);
+  font: 400 13px/1.4 var(--font);
   text-align: left;
   cursor: pointer;
   appearance: none;
+  box-shadow: calc(var(--shadow-x, 0px) * -1) calc(18px + var(--shadow-y, 0px)) 38px rgb(0 0 0 / 34%), inset 0 1px rgb(255 255 255 / 70%);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
-
-/* press grain: light dots on the dark face */
-.card::after {
+.card::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 2px;
   z-index: -1;
+  border: 1px solid rgb(25 21 31 / 35%);
+  border-radius: 12px;
+  background: linear-gradient(155deg, #25212d, #16141b 58%, #201c27);
   pointer-events: none;
-  background-image: radial-gradient(color-mix(in oklab, var(--color-paper) 60%, transparent) 0.6px, transparent 0.7px);
-  background-size: 4px 4px;
-  opacity: 0.12;
 }
-
-/* ---------- foil layers, always below every word --------------------------- */
-.card__foil {
+.card::after { content: none; }
+.card:focus-visible { outline: 2px solid #fff0d9; outline-offset: 5px; }
+.card__spin { position: relative; display: block; width: 100%; transform-style: preserve-3d; transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.card[data-flipped="true"] .card__spin { transform: rotateY(180deg); }
+.card__face { display: flex; width: 100%; min-width: 0; flex-direction: column; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.card__face--front { position: relative; z-index: 1; }
+.card__face--back {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  pointer-events: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 10%;
+  border: 1px solid rgb(255 255 255 / 38%);
+  border-radius: 9px;
+  background: radial-gradient(circle at center, rgb(130 100 160 / 34%), transparent 56%), repeating-conic-gradient(from 9deg at 50% 50%, rgb(233 216 229 / 11%) 0deg 1deg, transparent 1deg 8deg), linear-gradient(145deg, #30273b, #15121b 70%);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
+.card__back-pattern { position: absolute; inset: 6%; border: 1px solid rgb(234 216 230 / 36%); border-radius: 8px; background: repeating-radial-gradient(ellipse at center, transparent 0 10px, rgb(232 214 230 / 12%) 10.5px 11px, transparent 11.5px 20px); }
+.card__back-mark { position: relative; display: grid; justify-items: center; gap: 8px; text-align: center; }
+.card__back-brand { color: #f3e8df; font-size: clamp(22px, 4vw, 32px); font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; }
+.card__back-series { color: #c5b3c8; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; }
+.card__glit { position: absolute; inset: 0; z-index: 3; border-radius: inherit; background-image: var(--glitter-a), var(--glitter-b); background-size: 10em 10em, 7.5em 7.5em; background-position: calc(var(--px) * 0.025em) calc(var(--py) * 0.025em), calc(var(--px) * -0.045em) calc(var(--py) * -0.035em); mix-blend-mode: color-dodge; opacity: 0; pointer-events: none; mask-image: radial-gradient(circle at calc(var(--px) * 1%) calc(var(--py) * 1%), #000 0%, rgb(0 0 0 / 35%) 50%, rgb(0 0 0 / 12%) 100%); }
+.card__glit--whole { opacity: 0; }
+.card__foil { position: absolute; inset: 0; z-index: 2; overflow: hidden; border-radius: inherit; pointer-events: none; }
 .card__foil::before {
   content: "";
   position: absolute;
-  inset: -20%;
-  background-image: var(--foil-image);
-  background-size: 260% 260%;
-  background-position: var(--mx) var(--my);
-  mix-blend-mode: screen;
-  opacity: var(--wash);
+  inset: 0;
+  padding: 4px;
+  border-radius: inherit;
+  background-image:
+    repeating-linear-gradient(118deg, #ffc0e4 0%, #ffe2ad 6%, #bfffe2 12%, #b3e3ff 18%, #d3bfff 24%, #ffc0e4 30%),
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 25%) 0 0.05em, transparent 0.05em 0.3em),
+    repeating-linear-gradient(-45deg, rgb(50 34 120 / 12%) 0 0.05em, transparent 0.05em 0.3em),
+    linear-gradient(135deg, #f5f3fc, #a6aac8 22%, #f6f5fc 42%, #9598bd 64%, #eeebf8 82%, #aca8ce);
+  background-size: 320% 320%, 100% 100%, 100% 100%, 100% 100%;
+  background-position: calc(var(--px) * 1%) calc(var(--py) * 1%), center, center, center;
+  background-blend-mode: overlay, overlay, multiply, normal;
+  mix-blend-mode: multiply;
+  opacity: 0.74;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
 }
 .card__foil::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background-image: var(--sheen-image);
-  mix-blend-mode: screen;
-  opacity: var(--shine);
-  transform: translateX(calc(var(--band) * 1%));
+  inset: -5%;
+  background: linear-gradient(115deg, transparent calc(var(--bp) - 17%), rgb(255 255 255 / 30%) calc(var(--bp) - 5%), rgb(255 255 255 / 75%) var(--bp), rgb(245 234 255 / 30%) calc(var(--bp) + 5%), transparent calc(var(--bp) + 17%)), radial-gradient(farthest-corner circle at calc(var(--px) * 1%) calc(var(--py) * 1%), rgb(255 255 255 / 48%) 0%, rgb(255 255 255 / 18%) 24%, rgb(18 8 52 / 18%) 95%);
+  mix-blend-mode: soft-light;
+  opacity: calc(0.14 + var(--hyp) * 0.72);
 }
 
-/* ---------- 1 · name plate ------------------------------------------------- */
+/* 01 — set number and title */
 .card__plate {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "number chip" "name name" "mood mood";
-  align-items: start;
-  gap: 0 var(--space-2xs);
-  padding: var(--space-2xs) var(--space-sm) var(--space-xs);
-  border-bottom: var(--rule-bar) solid var(--rail);
-  background: color-mix(in oklab, var(--color-ink) 62%, var(--color-ink-2));
+  grid-template-areas: "number rarity" "name rarity" "mood mood";
+  align-items: center;
+  gap: 2px 8px;
+  padding: 8px 10px 11px;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(110deg, #2c2636, #17151c 70%);
 }
-.card__number {
-  grid-area: number;
-  min-width: 0;
-  color: var(--color-paper-3);
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
-  line-height: 1.3;
-}
+.card__number { grid-area: number; color: #c4b7aa; font-size: 10px; font-weight: 600; letter-spacing: 0.11em; }
 .card__name {
   grid-area: name;
-  overflow-wrap: break-word;
   min-width: 0;
-  margin-top: var(--space-3xs);
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  line-height: 1.04;
-  letter-spacing: var(--tracking-display);
-  color: var(--color-paper);
-}
-.card__mood {
-  grid-area: mood;
-  min-width: 0;
-  margin-top: var(--space-3xs);
-  color: color-mix(in oklab, var(--color-paper) 82%, transparent);
-  font-size: var(--text-xs);
-  font-style: italic;
-}
-
-/* the rarity chip is a printed hexagon, top right of the plate */
-.card__rarity {
-  grid-area: chip;
-  justify-self: end;
-  padding-inline: var(--space-sm);
-  clip-path: polygon(24% 0, 76% 0, 100% 50%, 76% 100%, 24% 100%, 0 50%);
-  background: var(--chip-bg, color-mix(in oklab, var(--color-paper) 16%, transparent));
-  color: var(--chip-fg, var(--color-paper-3));
-  font-size: 0.6875rem;
+  color: #fbf5ed;
+  font-size: 19px;
   font-weight: 700;
-  line-height: 2;
-  text-align: center;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+  overflow-wrap: break-word;
+}
+.card[data-rarity="rare"] .card__name,
+.card[data-rarity="holo"] .card__name {
+  background: linear-gradient(100deg, #fff 0%, #ffd6f0 22%, #fff3cf 38%, #d9c9ff 58%, #e0d2ff 76%, #fff 100%);
+  background-size: 240% 100%;
+  background-position: calc(var(--px) * 1%) 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px rgb(0 0 0 / 55%));
+}
+.card__mood { grid-area: mood; min-width: 0; margin-top: 5px; color: #c5b8c6; font-size: 11px; font-style: italic; }
+.card__rarity {
+  grid-area: rarity;
+  align-self: start;
+  padding: 6px 9px;
+  border: 1px solid rgb(245 235 224 / 23%);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 5%);
+  color: #e5d7c6;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.1;
+  white-space: nowrap;
 }
 
-/* ---------- 2 · art window ------------------------------------------------- */
+/* 02 — photo window: the photograph remains the strongest colour on the card */
 .card__photo {
   position: relative;
+  z-index: 4;
   isolation: isolate;
   display: block;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 0.96 / 1;
+  margin: 7px 0 0;
   overflow: hidden;
-  background: var(--color-ink-2);
+  border: 1px solid rgb(255 255 255 / 78%);
+  border-radius: 8px;
+  background: #302b35;
+  box-shadow: 0 0 0 3px rgb(22 19 27 / 88%), inset 0 0 0 1px rgb(255 255 255 / 28%);
 }
-.card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* outer line of the double border */
-.card__photo::before {
-  content: "";
+.card__img { position: relative; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 42%; }
+.card__frame {
   position: absolute;
-  inset: var(--space-3xs);
-  z-index: 3;
-  border: var(--rule-hair) solid var(--rail);
+  inset: 7px;
+  z-index: 4;
+  border: 1px solid rgb(255 255 255 / 76%);
+  border-radius: 4px;
   pointer-events: none;
 }
-
-/* prism wash over the picture itself */
+.card__frame::before, .card__frame::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background:
+    linear-gradient(#fff5e5, #fff5e5) left top / 26px 2px no-repeat,
+    linear-gradient(#fff5e5, #fff5e5) left top / 2px 26px no-repeat,
+    linear-gradient(#fff5e5, #fff5e5) right top / 26px 2px no-repeat,
+    linear-gradient(#fff5e5, #fff5e5) right top / 2px 26px no-repeat;
+}
+.card__frame::after { transform: rotate(180deg); }
 .card__photo::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 2;
-  pointer-events: none;
-  background-image: var(--foil-image);
-  background-size: 240% 240%;
-  background-position: var(--mx) var(--my);
-  mix-blend-mode: screen;
-  opacity: var(--wash);
-}
-
-/* inner line of the double border plus four corner brackets */
-.card__frame:empty {
-  position: absolute;
-  inset: var(--space-2xs);
-  z-index: 4;
-  border: var(--rule-hair) solid var(--rail);
-  pointer-events: none;
-}
-.card__frame:empty::before,
-.card__frame:empty::after {
-  content: "";
-  position: absolute;
-  left: calc(var(--rule-hair) * -1);
-  right: calc(var(--rule-hair) * -1);
-  height: 18px;
   background-image:
-    linear-gradient(var(--rail), var(--rail)),
-    linear-gradient(var(--rail), var(--rail)),
-    linear-gradient(var(--rail), var(--rail)),
-    linear-gradient(var(--rail), var(--rail));
-  background-size: 18px var(--rule-bar), var(--rule-bar) 18px, 18px var(--rule-bar), var(--rule-bar) 18px;
-  background-repeat: no-repeat;
+    repeating-linear-gradient(112deg, hsl(328 72% 52%) 0%, hsl(38 78% 54%) 4.5%, hsl(152 62% 48%) 9%, hsl(198 78% 54%) 13.5%, hsl(262 68% 60%) 18%, hsl(328 72% 52%) 22.5%),
+    repeating-linear-gradient(-38deg, rgb(0 0 0 / 55%) 0%, rgb(255 255 255 / 18%) 1.6%, rgb(0 0 0 / 55%) 3.2%);
+  background-size: 280% 280%, 160% 160%;
+  background-position: calc(var(--px) * 1%) calc(var(--py) * 1%), calc(100% - var(--px) * 1%) calc(var(--py) * 1%);
+  background-blend-mode: hard-light, normal;
+  opacity: calc(var(--photo-foil, 0) + var(--hyp) * var(--foil-strength, 0));
+  mix-blend-mode: color-dodge;
+  filter: saturate(0.9) contrast(1.1);
+  pointer-events: none;
 }
-.card__frame:empty::before {
-  top: calc(var(--rule-hair) * -1);
-  background-position: left top, left top, right top, right top;
-}
-.card__frame:empty::after {
-  bottom: calc(var(--rule-hair) * -1);
-  background-position: left bottom, left bottom, right bottom, right bottom;
-}
-
-/* rays and sparkles, holographic cards only */
 .card__rays {
   position: absolute;
-  /* oversized so the rotating square always covers the window */
-  inset: -25%;
+  inset: -35%;
   z-index: 1;
-  pointer-events: none;
-  background-image: var(--ray-image);
-  mix-blend-mode: screen;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, rgb(247 222 191 / 30%) 0deg 5deg, transparent 5deg 21deg, rgb(197 181 229 / 23%) 21deg 25deg, transparent 25deg 38deg);
   opacity: 0;
-  /* the mask keeps the middle clear so the rays stay behind the subject;
-     any fully opaque colour works, since a mask only reads alpha */
-  mask-image: radial-gradient(circle at 50% 50%, transparent 12%, color-mix(in oklab, var(--color-paper) 100%, transparent) 42%);
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse, transparent 10%, #000 58%);
+  pointer-events: none;
 }
-.card__rays::before,
-.card__rays::after {
-  content: "";
-  position: absolute;
-  background: var(--color-paper);
-  clip-path: polygon(50% 0, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0 50%, 42% 42%);
-}
-.card__rays::before {
-  /* positions are relative to the oversized layer, so they read shifted */
-  top: 27%;
-  left: 27%;
-  width: 20px;
-  height: 20px;
-}
-.card__rays::after {
-  right: 27%;
-  bottom: 27%;
-  width: 13px;
-  height: 13px;
-}
+.card__rays::before, .card__rays::after { content: "✧"; position: absolute; color: white; font-size: 23px; text-shadow: 0 0 14px white; }
+.card__rays::before { top: 31%; left: 25%; }
+.card__rays::after { right: 22%; bottom: 27%; font-size: 15px; }
 
-/* ---------- 3 · category strip --------------------------------------------- */
-.card__strip {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-3xs) var(--space-2xs);
-  padding: var(--space-3xs) var(--space-sm);
-  border-bottom: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 24%, transparent);
-}
-.card__kind {
-  min-width: 0;
-  color: var(--color-paper-3);
-  font-size: var(--text-xs);
-}
-.card__stars {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3xs);
-}
-.card__star {
-  width: 13px;
-  height: 13px;
-  flex: none;
-  fill: color-mix(in oklab, var(--color-paper) 24%, transparent);
-}
-.card__star--on {
-  fill: var(--star);
-}
+/* 03 — edition and stars */
+.card__strip { position: relative; z-index: 4; display: flex; min-height: 30px; align-items: center; justify-content: space-between; gap: 6px; padding: 5px 3px 4px; border-bottom: 1px solid rgb(255 255 255 / 18%); }
+.card__kind { min-width: 0; color: #c2b7c5; font-size: 9px; }
+.card__stars { display: flex; flex: none; align-items: center; gap: 3px; }
+.card__star { width: 11px; height: 11px; fill: rgb(242 230 215 / 22%); }
+.card__star--on { fill: var(--star-color, #ead7b7); filter: drop-shadow(0 0 3px rgb(239 218 194 / 32%)); }
 
-/* ---------- 4 · ability panel ---------------------------------------------- */
+/* 04 — story panel, then compact playful traits */
 .card__line {
-  margin: var(--space-2xs) var(--space-2xs) 0;
-  padding: var(--space-2xs) var(--space-sm) var(--space-xs);
-  border-radius: var(--radius-sm);
-  background: var(--color-paper);
-  color: var(--color-ink);
-  box-shadow: inset 0 0 0 var(--rule-hair) var(--color-rule);
-  font-size: var(--text-xs);
-}
-.card__keyword {
-  display: block;
-  min-width: 0;
-  color: var(--color-accent-strong);
-  font-weight: 700;
-}
-/* the gem in front of the keyword, drawn instead of typed */
-.card__keyword::before {
-  content: "";
-  display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
-  margin-right: 0.45em;
-  background: var(--color-accent);
-  transform: rotate(45deg);
-  vertical-align: middle;
-}
-.card__copy {
-  display: block;
-  margin-top: var(--space-3xs);
-  color: var(--color-ink-2);
-}
-.card__print {
-  display: block;
-  margin-top: var(--space-3xs);
-  padding-top: var(--space-3xs);
-  border-top: var(--rule-hair) solid var(--color-rule);
-  color: var(--color-muted);
-  font-style: italic;
-}
-
-/* ---------- 5 · stat chips -------------------------------------------------- */
-.card__stats {
+  position: relative;
+  z-index: 4;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-3xs);
-  margin: var(--space-2xs) var(--space-2xs) 0;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 9px 10px 10px;
+  border: 1px solid rgb(245 239 232 / 12%);
+  border-radius: 8px;
+  background: linear-gradient(140deg, rgb(255 255 255 / 8%), rgb(255 255 255 / 2%));
+  color: #f4ece4;
+  font-size: 11px;
 }
-.card__stat {
-  display: grid;
-  gap: var(--space-3xs);
-  min-width: 0;
-  padding: var(--space-3xs) var(--space-2xs);
-  border: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 34%, transparent);
-  border-radius: var(--radius-sm);
-  background: color-mix(in oklab, var(--color-paper) 8%, transparent);
+.card__keyword { display: flex; align-items: center; gap: 7px; color: #f0d5bd; font-size: 10px; font-weight: 700; }
+.card__keyword::before { content: ""; width: 7px; height: 7px; flex: none; border: 1px solid #e8d0bc; background: linear-gradient(135deg, #f4dfcb, #b8a2c1); transform: rotate(45deg); }
+.card__copy { color: #d6cdd7; line-height: 1.4; }
+.card__print { padding-top: 6px; border-top: 1px solid rgb(255 255 255 / 13%); color: #b7aab8; font-size: 10px; font-style: italic; line-height: 1.35; }
+.card__stats { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; margin-top: 8px; }
+.card__stat { position: relative; display: grid; min-width: 0; gap: 3px; overflow: hidden; padding: 6px 7px 8px; border: 1px solid rgb(245 239 232 / 15%); border-radius: 7px; background: linear-gradient(150deg, #2b2534, #19171e); }
+.card__stat-key { min-width: 0; overflow-wrap: anywhere; color: #b8adbb; font-size: 9px; line-height: 1.2; }
+.card__stat-value { color: #f6eee5; font-size: 14px; font-weight: 700; line-height: 1; }
+.card__stat-bar { position: absolute; right: 6px; bottom: 4px; left: 6px; height: 2px; overflow: hidden; border-radius: 2px; background: rgb(255 255 255 / 10%); }
+.card__stat-bar::before { content: ""; display: block; width: calc(var(--v, 0) * 100%); height: 100%; background: linear-gradient(90deg, #d6c0b3, #ead8ba, #d7c3dd); }
+.card__foot { position: relative; z-index: 4; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-top: auto; padding: 8px 2px 1px; color: #b7aaba; }
+.card__serial { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; }
+.card__credit { color: #928697; font-size: 8px; text-align: right; }
+
+/* Rarity is a material difference, not merely a label. */
+.card[data-rarity="common"] { --star-color: #ead7b7; --foil-strength: 0; }
+.card[data-rarity="rare"] { --star-color: #eccba9; --foil-strength: 0.28; --photo-foil: 0.08; box-shadow: 0 18px 38px rgb(0 0 0 / 30%), 0 0 0 1px rgb(233 206 188 / 38%), inset 0 1px rgb(255 255 255 / 68%); }
+.card[data-rarity="rare"] .card__rarity { border-color: rgb(237 207 184 / 52%); background: linear-gradient(110deg, rgb(229 200 183 / 24%), rgb(220 203 225 / 17%)); color: #f1decf; }
+.card[data-rarity="holo"] { --star-color: #f0dcb9; --foil-strength: 0.56; --photo-foil: 0.32; box-shadow: 0 22px 48px rgb(0 0 0 / 36%), 0 0 0 1px rgb(239 219 199 / 76%), 0 0 42px rgb(211 184 220 / 30%), inset 0 1px white; }
+.card[data-rarity="holo"] .card__foil::before { opacity: 1; mix-blend-mode: color-dodge; }
+.card[data-rarity="holo"] .card__foil::after { opacity: 0.92; }
+.card[data-rarity="holo"] .card__foil::after { animation: card-glint 5.2s ease-in-out infinite; }
+.card[data-rarity="holo"] .card__glit { opacity: calc(0.42 + var(--hyp) * 0.48); }
+.card[data-rarity="holo"] .card__glit--whole { opacity: calc(0.2 + var(--hyp) * 0.3); }
+.card[data-rarity="holo"] .card__rays { opacity: 0.94; animation: rays-turn 35s linear infinite; }
+.card[data-rarity="holo"] .card__rarity { border-color: transparent; background: var(--foil); color: #211d27; }
+.card[data-rarity="rare"] .card__foil::before { opacity: 0.48; }
+.card[data-rarity="rare"] .card__glit { opacity: calc(0.08 + var(--hyp) * 0.18); }
+.card[data-rarity="rare"] .card__foil::after { opacity: calc(0.2 + var(--hyp) * 0.5); }
+.card[data-rarity="rare"] .card__foil::after { animation: card-glint 7.6s ease-in-out infinite; }
+.card__face--front > :not(.card__foil):not(.card__glit) { z-index: 4; }
+@keyframes card-glint { 0%, 70%, 100% { transform: translateX(-120%); } 35% { transform: translateX(120%); } }
+@keyframes rays-turn { to { transform: rotate(360deg); } }
+
+.card--tile { height: 100%; text-align: left; }
+.card--tile .card__plate { min-height: 76px; }
+.card--tile .card__name { font-size: clamp(15px, 1.35vw, 19px); }
+.card--tile .card__photo { margin-top: 5px; }
+.card--drop { height: 100%; font-size: 12px; }
+.card--drop .card__plate { padding: 7px 8px 9px; }
+.card--drop .card__name { font-size: clamp(13px, 1.05vw, 16px); }
+.card--drop .card__rarity { padding: 5px 6px; font-size: 8px; }
+.card--drop .card__mood { font-size: 9px; }
+.card--drop .card__photo { aspect-ratio: 0.92 / 1; }
+.card--drop .card__line { min-height: 69px; padding: 7px; font-size: 10px; }
+.card--drop .card__keyword { font-size: 9px; }
+.card--drop .card__copy { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.card--drop .card__stats { gap: 3px; margin-top: 6px; }
+.card--drop .card__stat { padding: 5px 4px 7px; }
+.card--drop .card__stat-key { font-size: 8px; }
+.card--drop .card__stat-value { font-size: 12px; }
+.card--drop .card__foot { padding-top: 6px; }
+.card--drop .card__serial { font-size: 9px; }
+.card--full { width: 100%; font-size: 14px; }
+.card--full .card__plate { padding: 12px 14px 14px; }
+.card--full .card__name { font-size: clamp(24px, 3vw, 34px); }
+.card--full .card__mood { font-size: 13px; }
+.card--full .card__rarity { padding: 8px 11px; font-size: 10px; }
+.card--full .card__photo { aspect-ratio: 1 / 0.94; margin-top: 10px; }
+.card--full .card__line { gap: 8px; margin-top: 11px; padding: 13px 15px; font-size: 14px; }
+.card--full .card__keyword { font-size: 12px; }
+.card--full .card__copy { font-size: 14px; }
+.card--full .card__print { font-size: 12px; }
+.card--full .card__stats { gap: 8px; margin-top: 10px; }
+.card--full .card__stat { gap: 6px; padding: 9px 10px 12px; }
+.card--full .card__stat-key { font-size: 11px; }
+.card--full .card__stat-value { font-size: 18px; }
+.card--full .card__foot { padding-top: 10px; }
+.card--full .card__serial { font-size: 13px; }
+.card--full .card__credit { font-size: 10px; }
+.card--tile:hover { transform: translateY(-5px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)); box-shadow: 0 26px 45px rgb(0 0 0 / 38%), 0 0 22px rgb(231 208 191 / 12%); }
+
+.pack__drop .pack__slot { min-width: 0; }
+.confetti { border-radius: inherit; }
+@media (max-width: 760px) {
+  .card { border-radius: 13px; padding: 5px; }
+  .card__plate { grid-template-areas: "number rarity" "name name" "mood mood"; }
+  .card--drop .card__name { font-size: 14px; }
+  .card--drop .card__rarity { font-size: 8px; }
+  .card--drop .card__photo { aspect-ratio: 0.8 / 1; }
+  .card--drop .card__stat-key { font-size: 7px; }
+  .card--drop .card__stat-value { font-size: 11px; }
+  .card--full { padding: 5px; font-size: 12px; }
+  .card--full .card__plate { padding: 7px 9px 8px; }
+  .card--full .card__name { font-size: 22px; }
+  .card--full .card__mood { margin-top: 2px; font-size: 10px; }
+  .card--full .card__rarity { padding: 6px 8px; font-size: 9px; }
+  .card--full .card__photo { aspect-ratio: 1 / 0.78; margin-top: 5px; }
+  .card--full .card__strip { min-height: 25px; padding-block: 3px; }
+  .card--full .card__line { gap: 4px; margin-top: 5px; padding: 7px 9px; font-size: 11px; }
+  .card--full .card__keyword { font-size: 10px; }
+  .card--full .card__copy { font-size: 11px; line-height: 1.3; }
+  .card--full .card__print { padding-top: 4px; font-size: 9px; }
+  .card--full .card__stats { gap: 4px; margin-top: 5px; }
+  .card--full .card__stat { gap: 3px; padding: 5px 6px 8px; }
+  .card--full .card__stat-key { font-size: 9px; }
+  .card--full .card__stat-value { font-size: 14px; }
+  .card--full .card__foot { padding-top: 5px; }
+  .card--full .card__serial { font-size: 10px; }
+  .card--full .card__credit { font-size: 8px; }
 }
-.card__stat-key {
-  min-width: 0;
-  hyphens: auto;
-  color: var(--color-paper-3);
-  font-size: var(--text-xs);
-  line-height: 1.25;
+@media (max-width: 390px) {
+  .card--drop .card__mood { display: none; }
+  .card--drop .card__line { min-height: 61px; }
+  .card--drop .card__stat-key { font-size: 7px; }
 }
-.card__stat-value {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  line-height: 1;
-  color: var(--color-paper);
-}
-.card__stat-bar {
-  height: 6px;
-  border: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 38%, transparent);
-  background-color: color-mix(in oklab, var(--color-paper) 16%, transparent);
-  background-image: linear-gradient(var(--color-accent), var(--color-accent));
-  background-repeat: no-repeat;
-  background-size: calc(var(--v, 0) * 100%) 100%;
+@media (prefers-reduced-motion: reduce) {
+  .card, .card--tile:hover { transform: none; }
+  .card__foil::after, .card__rays { animation: none !important; }
+  .card[data-rarity="holo"] .card__foil::before { opacity: 0.3; }
+  .card[data-rarity="holo"] .card__rays { opacity: 0.65; }
 }
 
-/* ---------- 6 · serial row -------------------------------------------------- */
-.card__foot {
-  margin-top: auto;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-3xs) var(--space-2xs);
-  padding: var(--space-2xs) var(--space-sm);
-  border-top: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 24%, transparent);
-}
-.card__serial {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  line-height: 1.2;
-  color: var(--color-paper);
-}
-.card__credit {
-  color: color-mix(in oklab, var(--color-paper) 72%, transparent);
-  font-size: 0.6875rem;
-  text-align: right;
-}
-
-/* ---------- rarity ---------------------------------------------------------- */
-
-/* common: a flat dark card, printed and quiet */
-.card[data-rarity="common"] {
-  --wash: 0;
-  --shine: 0;
-}
-
-/* rare: a mint foil rule and a sheen that stands still */
-.card[data-rarity="rare"] {
-  --wash: 0.22;
-  --shine: 0.5;
-  --band: -30;
-  --rail: var(--color-accent-deep);
-  --star: var(--color-accent);
-  --chip-bg: color-mix(in oklab, var(--color-accent) 28%, transparent);
-  --chip-fg: var(--color-accent);
-  box-shadow: inset 0 0 0 var(--rule-hair) var(--color-accent);
-}
-
-/* holo: prism over the picture, sparkles, a travelling sheen and a mint edge */
+/* Holo is a material, not a label: pearl plate + saturated foil + etched
+   interference. The dog photograph stays sharp and readable underneath. */
 .card[data-rarity="holo"] {
-  --wash: 0.34;
-  --shine: 1;
-  --rail: var(--color-accent);
-  --star: var(--color-accent);
-  --chip-bg: var(--color-accent);
-  --chip-fg: var(--color-accent-ink);
-  box-shadow: inset 0 0 0 var(--rule-bar) var(--color-accent);
+  --foil-strength: 0.42;
+  --photo-foil: 0.18;
+  box-shadow:
+    0 24px 52px rgb(0 0 0 / 44%),
+    0 0 0 1px rgb(255 255 255 / 90%),
+    0 0 34px rgb(226 191 255 / 32%),
+    inset 0 1px white;
 }
-.card[data-rarity="holo"] .card__rays {
+.card[data-rarity="holo"]::before { inset: 8px; }
+.card[data-rarity="holo"] .card__foil::before {
+  background-image:
+    repeating-linear-gradient(118deg, #ff78c5 0%, #ffd46e 6%, #91f0c8 12%, #74d9ff 18%, #b496ff 24%, #ff78c5 30%),
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 46%) 0 0.045em, transparent 0.045em 0.28em),
+    repeating-linear-gradient(-45deg, rgb(51 31 90 / 32%) 0 0.045em, transparent 0.045em 0.28em),
+    linear-gradient(135deg, #f6f1ff, #abb1d4 22%, #fff5fd 42%, #9299c7 64%, #f6eefa 82%, #b8a4ca);
+  background-size: 260% 260%, 100% 100%, 100% 100%, 100% 100%;
+  background-blend-mode: screen, overlay, multiply, normal;
+  mix-blend-mode: normal;
+  filter: saturate(1.38) contrast(1.08);
   opacity: 1;
 }
 .card[data-rarity="holo"] .card__foil::after {
-  animation: foil-sweep 5.4s var(--ease-out) infinite;
+  background:
+    linear-gradient(115deg, transparent calc(var(--bp) - 18%), rgb(255 255 255 / 18%) calc(var(--bp) - 7%), rgb(255 255 255 / 82%) var(--bp), rgb(221 212 255 / 30%) calc(var(--bp) + 7%), transparent calc(var(--bp) + 18%)),
+    radial-gradient(farthest-corner circle at calc(var(--px) * 1%) calc(var(--py) * 1%), rgb(255 255 255 / 66%) 0%, rgb(255 255 255 / 24%) 24%, rgb(18 8 52 / 24%) 95%);
+  mix-blend-mode: screen;
+  opacity: calc(.44 + var(--hyp) * .46);
 }
-.card[data-rarity="holo"] .card__rays {
-  animation: rays-turn 26s linear infinite;
+.card[data-rarity="holo"] .card__name {
+  background-image: linear-gradient(100deg, #fff 0%, #ffb9df 22%, #fff0b7 38%, #aeeeff 56%, #d4bdff 74%, #fff 100%);
+  background-size: 260% 100%;
 }
-.card[data-rarity="holo"] .card__rays::before,
-.card[data-rarity="holo"] .card__rays::after {
-  animation: sparkle 3.6s ease-in-out infinite;
+.card[data-rarity="holo"] .card__photo::after {
+  background-image:
+    repeating-linear-gradient(112deg, hsl(328 95% 70%) 0%, hsl(42 100% 72%) 4.5%, hsl(151 83% 66%) 9%, hsl(198 100% 70%) 13.5%, hsl(262 88% 74%) 18%, hsl(328 95% 70%) 22.5%),
+    repeating-linear-gradient(-38deg, rgb(0 0 0 / 48%) 0%, rgb(255 255 255 / 22%) 1.6%, rgb(0 0 0 / 48%) 3.2%);
+  background-size: 280% 280%, 160% 160%;
+  background-blend-mode: hard-light, normal;
+  mix-blend-mode: color-dodge;
+  opacity: calc(.16 + var(--hyp) * .4);
+  mask-image: radial-gradient(circle at calc(var(--px) * 1%) calc(var(--py) * 1%), #000 0%, rgb(0 0 0 / 76%) 46%, transparent 100%);
 }
-.card[data-rarity="holo"] .card__rays::after {
-  animation-delay: 1.3s;
+.card[data-rarity="holo"] .card__glit {
+  opacity: calc(.48 + var(--hyp) * .44);
+  mix-blend-mode: color-dodge;
 }
-.card[data-rarity="holo"] .card__img {
-  filter: saturate(1.06) contrast(1.04);
-}
+.card[data-rarity="holo"] .card__glit--whole { opacity: calc(.22 + var(--hyp) * .34); }
 
-/* ---------- sizes ----------------------------------------------------------- */
-
-/* the drop: five across, everything smaller and the ability panel compressed */
-.card--drop {
-  width: 100%;
-  font-size: var(--text-xs);
-}
-.card--drop .card__name {
-  font-size: var(--text-base);
-}
-.card--drop .card__copy {
-  max-height: calc(1.45em * 2);
-  overflow: hidden;
-}
-/* the chips stay three across, they just get smaller type */
-.card--drop .card__stat {
-  padding: var(--space-3xs);
-  gap: 2px;
-}
-.card--drop .card__stat-key {
-  font-size: 0.6875rem;
-}
-.card--drop .card__stat-value {
-  font-size: var(--text-xs);
-}
-
-/* the tile: name, stars, photo, kept small so the binder stays a grid */
-.card--tile {
-  height: 100%;
-  outline: var(--rule-bar) solid transparent;
-  outline-offset: 3px;
-  transition: transform var(--dur-mid) var(--ease-out), outline-color var(--dur-short) ease;
-}
-.card--tile:hover {
-  /* perspective inside the transform, so the binder needs no wrapper */
-  transform: perspective(900px)
-    translateY(-6px)
-    rotateX(var(--tilt-x))
-    rotateY(var(--tilt-y));
-  outline-color: var(--color-accent);
-}
-
-/* the full card in the dialog: the whole anatomy */
+/* The full card is a true trading-card proportion. A fixed frame gives the
+   art a stable window and lets every line, stat and serial stay in bounds. */
 .card--full {
-  width: min(420px, 100%);
-  margin-inline: auto;
-  font-size: var(--text-base);
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: .70;
+  padding: 8px;
+  overflow: hidden;
+  container-type: inline-size;
+  border-radius: 18px;
 }
-.card--full .card__name {
-  font-size: clamp(var(--text-xl), 6vw, var(--text-2xl));
-}
-.card--full .card__line {
-  font-size: var(--text-sm);
-}
-.card--full .card__keyword {
-  font-size: var(--text-lg);
-}
-.card--full .card__rays::before {
-  width: 26px;
-  height: 26px;
-}
-.card--full .card__rays::after {
-  width: 17px;
-  height: 17px;
-}
-
-.card:focus-visible {
-  outline: var(--rule-bar) solid var(--color-paper);
-  outline-offset: 3px;
-}
-
-/* ---------- pack ----------------------------------------------------------- */
-.pack {
-  display: grid;
-  justify-items: center;
-  gap: var(--space-lg);
-  padding-block: var(--space-xl);
-}
-
-/* Additive only: the packet geometry belongs to style.css, this is the light
-   burst along the tear when the seal is hovered or opened. */
-.pack__seal::after {
-  content: "";
+.card--full .card__spin { position: relative; width: 100%; height: 100%; display: block; }
+.card--full .card__face--front {
   position: absolute;
   inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background-image: var(--sheen-image);
-  mix-blend-mode: screen;
-  opacity: 0;
+  display: grid;
+  min-height: 0;
+  grid-template-rows: auto minmax(76px, 1fr) auto minmax(min-content, auto) auto auto;
+  overflow: hidden;
+  border-radius: 10px;
 }
-.pack__seal:hover::after,
-.pack__seal:focus-visible::after {
-  opacity: 1;
-  animation: foil-sweep 900ms var(--ease-out) both;
+.card--full .card__plate { gap: 2px 8px; padding: 7px 10px 8px; }
+.card--full .card__number { font-size: clamp(8px, 2.8cqw, 10px); }
+.card--full .card__name { font-size: clamp(16px, 6.2cqw, 22px); line-height: 1.05; }
+.card--full .card__mood { margin-top: 3px; font-size: clamp(9px, 3.1cqw, 11px); }
+.card--full .card__rarity { padding: 5px 7px; font-size: clamp(8px, 2.6cqw, 9px); }
+.card--full .card__photo { min-height: 0; aspect-ratio: auto; margin: 5px 0 0; }
+.card--full .card__img { object-position: center 42%; }
+.card--full .card__strip { min-height: 26px; padding: 3px 2px; }
+.card--full .card__kind { font-size: clamp(8px, 2.6cqw, 9px); }
+.card--full .card__star { width: clamp(9px, 3cqw, 11px); height: clamp(9px, 3cqw, 11px); }
+.card--full .card__line {
+  min-height: 0;
+  gap: 4px;
+  margin: 5px 0 0;
+  padding: 7px 9px 8px;
+  font-size: clamp(10px, 3.2cqw, 11px);
+  line-height: 1.32;
 }
-.pack__seal:focus-visible {
-  outline: var(--rule-bar) solid var(--color-focus);
-  outline-offset: 6px;
+.card--full .card__keyword { font-size: clamp(9px, 3cqw, 10px); }
+.card--full .card__copy { font-size: inherit; line-height: 1.34; }
+.card--full .card__print { padding-top: 4px; font-size: clamp(9px, 2.8cqw, 10px); line-height: 1.3; }
+.card__stats-label { position: relative; z-index: 4; margin: 5px 0 -3px; color: #bfb1ca; font-size: 8px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.card--drop .card__stats-label { margin: 4px 0 -2px; font-size: 6px; letter-spacing: .06em; white-space: nowrap; }
+.card--full .card__stats-label { margin-top: 5px; font-size: clamp(7px, 2.5cqw, 8px); }
+.card--full .card__stats { gap: 4px; margin: 5px 0 0; }
+.card--full .card__stat { gap: 3px; padding: 5px 5px 7px; }
+.card--full .card__stat-key { font-size: clamp(8px, 2.7cqw, 9px); line-height: 1.2; }
+.card--full .card__stat-value { font-size: clamp(12px, 4.1cqw, 15px); }
+.card--full .card__stat-bar { bottom: 3px; }
+.card--full .card__foot { min-height: 23px; margin: 0; padding: 5px 2px 0; }
+.card--full .card__serial { font-size: clamp(9px, 3cqw, 10px); }
+.card--full .card__credit { font-size: 8px; }
+.card--full .card__face--back {
+  z-index: 2;
+  background-color: #17131f;
+  background-image:
+    radial-gradient(ellipse at 50% 42%, rgb(151 119 175 / 38%), transparent 54%),
+    repeating-conic-gradient(from 9deg at 50% 50%, rgb(233 216 229 / 14%) 0deg 1deg, transparent 1deg 8deg),
+    repeating-radial-gradient(ellipse at 50% 50%, transparent 0 11px, rgb(232 214 230 / 17%) 11.5px 12px, transparent 12.5px 23px),
+    linear-gradient(145deg, #35283e, #17131f 72%);
+  border: 1px solid rgb(255 255 255 / 54%);
 }
-.pack__drop {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: start;
-  justify-content: center;
-  gap: var(--space-md);
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.card--full .card__back-pattern {
+  inset: 6%;
+  border-color: rgb(245 229 249 / 54%);
+  background:
+    repeating-radial-gradient(ellipse at 50% 50%, transparent 0 9px, rgb(244 227 247 / 19%) 9.5px 10px, transparent 10.5px 19px),
+    repeating-conic-gradient(from 0deg at 50% 50%, rgb(255 255 255 / 8%) 0deg 1deg, transparent 1deg 7deg);
+  opacity: .9;
 }
-.pack__slot {
-  display: flex;
-  justify-content: center;
-  min-width: 0;
+.card--full .card__face--back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.card[data-rarity="holo"] {
+  background:
+    repeating-linear-gradient(118deg, #ff6dbd 0%, #ffd35b 7%, #86edbd 14%, #67d7ff 21%, #ad8aff 28%, #ff6dbd 35%),
+    repeating-linear-gradient(45deg, rgb(255 255 255 / 48%) 0 1px, transparent 1px 7px),
+    linear-gradient(135deg, #f8f3ff, #aab0d0 32%, #fff1fc 58%, #9fa1c4 82%, #e8daee);
+  background-size: 280% 280%, 100% 100%, 100% 100%;
+  background-position: calc(var(--px) * 1%) calc(var(--py) * 1%), center, center;
+  background-blend-mode: screen, overlay, normal;
+}
+.card[data-rarity="holo"] .card__foil::before { padding: 7px; }
+.card[data-rarity="holo"] .card__photo::after { opacity: calc(.28 + var(--hyp) * .48); }
+.card--full .card__face--back .card__foil { z-index: 1; }
+.card--full .card__face--back .card__back-pattern { z-index: 2; }
+.card--full .card__face--back .card__glit { z-index: 3; }
+.card--full .card__face--back .card__back-mark { z-index: 4; }
+.card--full .card__back-mark::before {
+  content: "E";
+  display: grid;
+  width: clamp(54px, 23cqw, 78px);
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgb(245 229 249 / 74%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 255 255 / 12%), rgb(255 255 255 / 2%));
+  color: #f7e9f8;
+  font-size: clamp(28px, 12cqw, 40px);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-shadow: 0 0 18px rgb(255 217 246 / 55%);
+  box-shadow: 0 0 26px rgb(225 193 255 / 22%), inset 0 0 0 4px rgb(255 255 255 / 5%);
 }
 
-/* stagger comes from the inline --i on each slot, so no JS timing is needed */
-.pack__slot--reveal {
-  animation: card-drop 420ms var(--ease-out) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
-}
-
-@keyframes card-drop {
-  from {
-    opacity: 0;
-    transform: translateY(-18px) rotate(-4deg) scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes foil-sweep {
-  from { transform: translateX(-115%); }
-  to { transform: translateX(115%); }
-}
-
-@keyframes rays-turn {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes sparkle {
-  0%, 100% { opacity: 0.45; transform: scale(0.82); }
-  50% { opacity: 1; transform: scale(1.12); }
-}
-
-@media (max-width: 640px) {
-  .pack {
-    gap: var(--space-md);
-    padding-block: var(--space-lg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card[data-rarity="holo"] .card__foil::after,
-  .card[data-rarity="holo"] .card__rays,
-  .card[data-rarity="holo"] .card__rays::before,
-  .card[data-rarity="holo"] .card__rays::after,
-  .pack__seal::after,
-  .pack__slot--reveal {
-    animation: none;
-  }
-
-  /* the sheen and the rays stay put, so holo still reads as foil, just still */
-  .card__foil::after {
-    transform: translateX(calc(var(--band) * 1%));
-  }
-  .card--tile:hover,
-  .pack__seal:hover,
-  .pack__seal:active {
-    transform: none;
-  }
+@media (max-width: 380px) {
+  .card--full { padding: 7px; border-radius: 14px; aspect-ratio: .58; }
+  .card--full .card__face--front { grid-template-rows: auto minmax(68px, 1fr) auto minmax(min-content, auto) auto auto; }
+  .card--full .card__line { padding: 6px 7px; }
+  .card--full .card__stats { gap: 3px; }
+  .card--full .card__stat { padding-inline: 4px; }
 }
